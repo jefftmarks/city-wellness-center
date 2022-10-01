@@ -1,8 +1,8 @@
-#edit-appt h2 {
+#create-appt h2 {
 	margin: 0;
 }
 
-#edit-appt-form {
+#create-appt-form {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -10,11 +10,15 @@
 	margin-top: 20px;
 }
 
-#edit-appt-form input {
+.create-appt-name {
+	margin-top: 5px;
+}
+
+#create-appt-form input {
 	margin-left: 8px;
 }
 
-#edit-appt-form button {
+#create-appt-form button {
 	height: 21.33px;
 	width: 180px;
 	border: 1px solid black;

@@ -5,6 +5,11 @@
 	padding: 21.33px
 }
 
+#appts-table-container h2 {
+	margin-top: 0px;
+	margin-bottom: 21.33px;
+}
+
 #appts-table {
 	margin-top: 21.33px;
 	border-collapse: collapse;
@@ -28,4 +33,14 @@
 
 #appts-table tr:hover {
 	background-color: #ddd;
+}
+
+#appts-table-container button {
+	height: 21.33px;
+	width: 180px;
+	margin-top: 21.33px;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
 }

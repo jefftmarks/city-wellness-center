@@ -4,23 +4,25 @@ import "./PatientsDoctorsTable.css";
 
 const patients = [
 	{id: 1, last_name: "Marks", first_name: "Jeff"},
-	{id: 2, last_name: "Marks", first_name: "Jeff"},
-	{id: 3, last_name: "Marks", first_name: "Jeff"},
-	{id: 4, last_name: "Marks", first_name: "Jeff"},
-	{id: 5, last_name: "Marks", first_name: "Jeff"}
+	{id: 2, last_name: "Marks", first_name: "Billy"},
+	{id: 3, last_name: "Marks", first_name: "Joe"},
+	{id: 4, last_name: "Marks", first_name: "Sarah"},
+	{id: 5, last_name: "Marks", first_name: "Emily"}
 ]
 
 const doctors = [
 	{id: 1, last_name: "Yabre", first_name: "Thierry"},
-	{id: 2, last_name: "Yabre", first_name: "Thierry"},
-	{id: 3, last_name: "Yabre", first_name: "Thierry"},
-	{id: 4, last_name: "Yabre", first_name: "Thierry"},
-	{id: 5, last_name: "Yabre", first_name: "Thierry"}
+	{id: 2, last_name: "Yabre", first_name: "Marcus"},
+	{id: 3, last_name: "Yabre", first_name: "Hannah"},
+	{id: 4, last_name: "Yabre", first_name: "Beverly"},
+	{id: 5, last_name: "Yabre", first_name: "Chris"}
 ]
 
-function PatientsDoctorsTable({ setDisplay }) {
+function PatientsDoctorsTable({ setDisplay, mode, setPatient, setDoctor }) {
 	const [category, setCategory] = useState("patients");
 	const [records, setRecords] = useState(patients);
+
+	const categoryHeader = category[0].toUpperCase() + category.slice(1);
 
 	function handleChangeCategory(category) {
 		setCategory(category);
@@ -39,12 +41,22 @@ function PatientsDoctorsTable({ setDisplay }) {
 	// }, [category]);
 
 	function handleClickRecord(record) {
-		const payload = {data: record, mode: "record-edit"};
-		setDisplay(payload);
+		switch (mode) {
+			case "edit":
+				alert("You've made changes to the record. Please submit or discard your changes before proceeding.");
+				break;
+		 	case "create":
+				category === "patients" ? setPatient(record) : setDoctor(record)
+				break;
+			default:
+				const payload = {data: record, page: "record-edit"};
+				setDisplay(payload);
+		}
 	}
 
 	return (
 		<div id="patients-drs-table-container">
+			<h2>{categoryHeader}</h2>
 			<button
 				id="show-patients-btn"
 				className={category === "patients" ? "selected" : null}
