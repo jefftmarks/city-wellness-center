@@ -1,0 +1,31 @@
+#appts-table-container {
+	border: 1px solid black;
+	width: 80%;
+	height: 400px;
+	padding: 21.33px
+}
+
+#appts-table {
+	margin-top: 21.33px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#appts-table th {
+  text-align: left;
+	padding: 8px;
+	background-color: white;
+}
+
+#appts-table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#appts-table tr:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+#appts-table tr:hover {
+	background-color: #ddd;
+}
