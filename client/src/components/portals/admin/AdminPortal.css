@@ -1,0 +1,29 @@
+#admin-portal {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#admin-left-panel, #admin-right-panel {
+	width: 50%;
+	min-width: 500px;
+	height: 100%;
+	flex-grow: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.admin-portal-div {
+	height: 70px;
+}
+
+#admin-display-container {
+	border: 1px solid black;
+	height: 870px;
+	width: 80%;
+	padding: 21.33px;
+}

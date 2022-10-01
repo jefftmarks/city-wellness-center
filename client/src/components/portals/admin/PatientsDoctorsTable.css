@@ -1,0 +1,54 @@
+#patients-drs-table-container {
+	border: 1px solid black;
+	width: 80%;
+	height: 400px;
+	padding: 21.33px
+}
+
+#patients-drs-table {
+	margin-top: 21.33px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#patients-drs-table th {
+  text-align: left;
+	padding: 8px;
+	background-color: white;
+}
+
+#patients-drs-table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#patients-drs-table tr:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+#patients-drs-table tr:hover {
+	background-color: #ddd;
+}
+
+#patients-drs-table-container button {
+	height: 21.33px;
+	width: 90px;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
+}
+
+#patients-drs-table-container .selected {
+	background-color: #adff2f; 
+}
+
+#show-doctors-btn {
+	border: 1px solid black;
+}
+
+#show-patients-btn {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	border-left: 1px solid black;
+	border-right: none;
+}
