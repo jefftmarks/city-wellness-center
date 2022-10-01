@@ -1,7 +1,8 @@
 .login-form-container {
 	border: 1px solid black;
 	width: 500px;
-	height: 300px;
+	height: auto;
+	padding: 40px 0;
 }
 
 .login-form {
@@ -30,6 +31,31 @@
 	align-items: center;
 }
 
-select {
+.user-role-container select {
 	height: 30px;
+}
+
+.login-btn-container {
+	width: 80%;
+}
+
+.login-btn-container button {
+	height: 30px;
+	width: 90px;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
+}
+
+.login-errors {
+	margin: 0;
+	padding-left: 0px;
+	width: 80%;
+	line-height: 25px;
+}
+
+.login-errors li {
+	list-style: none;
+	color: red;
 }
