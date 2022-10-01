@@ -1,27 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LoginForm.css";
 
-function LoginForm() {
+function LoginForm({ onLogin }) {
+	const initializedForm = {email: "", password: "", role: ""};
+	const [formData, setFormData] = useState(initializedForm);
+	const [errors, setErrors] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	const errorList = errors.map((error) => (
+		<li key={error}>{error}</li>
+	));
+
+	function handleChange(event) {
+		const { name, value } = event.target;
+		setFormData({...formData, [name]: value});
+	}
+
+	function handleSubmit(event) {
+		event.preventDefault();
+		setIsLoading(true);
+		setErrors([]);
+		fetch(`/login/${formData.role}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+			.then((res) => {
+				setIsLoading(false);
+				if (res.ok) {
+					res.json().then((data) => {
+						localStorage.setItem("jwt", data.token);
+						onLogin(data.user);
+					})
+				}
+			})
+	}
+
+	
+
 	return (
 		<div className="login-form-container">
-			<form className="login-form">
+			<form className="login-form" onSubmit={handleSubmit}>
 				<div className="user-role-container">
-					<label for="user-role">I'm logging in as a . . .</label>
-					<select name="user-role" id="user-role">
+					<label htmlFor="user-role">I'm logging in as . . .</label>
+					<select
+						name="role"
+						id="user-role"
+						value={formData.role}
+						onChange={handleChange}
+					>
 						<option disabled value="">Please Choose</option>
 						<option value="patient">Patient</option>
-						<option value="doctoer">Doctor</option>
+						<option value="doctor">Doctor</option>
 						<option value="admin">Admin</option>
 					</select>
 				</div>
 				<div className="login-input-div"></div>
 				<input
-						type="text"
-						id="username"
-						name="username"
-						placeholder="username"
-						// value={formData.username}
-						// onChange={handleChange}
+						type="email"
+						id="email"
+						name="email"
+						placeholder="email"
+						value={formData.email}
+						onChange={handleChange}
 						
 					/>
 				<div className="login-input-div"></div>
@@ -30,9 +73,19 @@ function LoginForm() {
 					id="password"
 					name="password"
 					placeholder="password"
-					// value={formData.password}
-					// onChange={handleChange}
+					value={formData.password}
+					onChange={handleChange}
 				/>
+				<div className="login-input-div"></div>
+				<div className="login-btn-container">
+					<button>{isLoading ? "Loading..." : "Sign In"}</button>
+				</div>
+				{errors.length > 0 ? (
+					<>
+						<div className="login-input-div"></div>
+						<ul className="login-errors">{errorList}</ul>
+					</>
+				) : null}
 			</form>
 		</div>
 	)
