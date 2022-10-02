@@ -6,6 +6,8 @@ function Record({ record, handleOnClick }) {
 			<td>{record.id}</td>
 			<td>{record.last_name}</td>
 			<td>{record.first_name}</td>
+			<td>{record.phone}</td>
+			<td>{record.email}</td>
 		</tr>
 	)
 }

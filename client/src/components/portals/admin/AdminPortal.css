@@ -1,12 +1,13 @@
 #admin-portal {
 	width: 100vw;
 	height: 100vh;
+	/* padding-top: 15px; */
 	display: flex;
 	flex-wrap: wrap;
 }
 
 #admin-left-panel, #admin-right-panel {
-	width: 50%;
+	/* width: 50%; */
 	min-width: 500px;
 	height: 100%;
 	flex-grow: 1;
@@ -17,13 +18,23 @@
 	align-items: center;
 }
 
+#admin-left-panel {
+	width: 60%;
+	/* border: 1px solid red; */
+}
+
+#admin-right-panel {
+	width: 40%;
+	/* border: 1px solid green; */
+}
+
 .admin-portal-div {
-	height: 70px;
+	height: 30px;
 }
 
 #admin-display-container {
 	border: 1px solid black;
-	height: 870px;
-	width: 80%;
+	height: 710px;
+	width: 90%;
 	padding: 21.33px;
 }

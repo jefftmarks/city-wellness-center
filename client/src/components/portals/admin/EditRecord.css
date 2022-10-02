@@ -1,8 +1,8 @@
-#edit-appt h2 {
+#edit-record h2 {
 	margin: 0;
 }
 
-#edit-appt-form {
+#edit-record-form {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -10,15 +10,11 @@
 	margin-top: 20px;
 }
 
-#edit-appt-form input {
+#edit-record-form input {
 	margin-left: 8px;
 }
 
-#edit-appt-time {
-	width: 120px;
-}
-
-#edit-appt-form button {
+#edit-record-form button {
 	height: 21.33px;
 	width: 180px;
 	border: 1px solid black;

@@ -1,12 +1,22 @@
 #appts-table-container {
 	border: 1px solid black;
-	width: 80%;
-	height: 400px;
-	padding: 21.33px
+	width: 90%;
+	height: 340px;
+	padding: 18px
+}
+
+#appts-table-header {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 18px;
+}
+
+#appts-table-header h2 {
+	margin: 0;
 }
 
 #appts-table {
-	margin-top: 21.33px;
+	margin-top: 18px;
 	border-collapse: collapse;
 	width: 100%;
 }
@@ -28,4 +38,13 @@
 
 #appts-table tr:hover {
 	background-color: #ddd;
+}
+
+#appts-table-container button {
+	height: 18px;
+	width: 180px;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
 }

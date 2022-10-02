@@ -1,0 +1,40 @@
+#create-record h2 {
+	margin: 0;
+}
+
+#create-record-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	height: 350px;
+	margin-top: 20px;
+}
+
+.create-record-name {
+	margin-top: 5px;
+}
+
+#create-record-form input {
+	margin-left: 8px;
+}
+
+#create-record-form button {
+	height: 21.33px;
+	width: 180px;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
+}
+
+#create-record-errors {
+	margin: 0;
+	padding-left: 0px;
+	width: 80%;
+	line-height: 25px;
+}
+
+#create-record-errors li {
+	list-style: none;
+	color: red;
+}

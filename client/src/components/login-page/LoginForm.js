@@ -33,7 +33,9 @@ function LoginForm({ onLogin }) {
 					res.json().then((data) => {
 						localStorage.setItem("jwt", data.token);
 						onLogin(data.user);
-					})
+					});
+				} else {
+					res.json().then((data) => setErrors(data.errors));
 				}
 			})
 	}
@@ -41,9 +43,9 @@ function LoginForm({ onLogin }) {
 	
 
 	return (
-		<div className="login-form-container">
-			<form className="login-form" onSubmit={handleSubmit}>
-				<div className="user-role-container">
+		<div id="login-form-container">
+			<form id="login-form" onSubmit={handleSubmit}>
+				<div id="user-role-container">
 					<label htmlFor="user-role">I'm logging in as . . .</label>
 					<select
 						name="role"
@@ -60,7 +62,7 @@ function LoginForm({ onLogin }) {
 				<div className="login-input-div"></div>
 				<input
 						type="email"
-						id="email"
+						id="login-email"
 						name="email"
 						placeholder="email"
 						value={formData.email}
@@ -70,20 +72,20 @@ function LoginForm({ onLogin }) {
 				<div className="login-input-div"></div>
 				<input
 					type="password"
-					id="password"
+					id="login-password"
 					name="password"
 					placeholder="password"
 					value={formData.password}
 					onChange={handleChange}
 				/>
 				<div className="login-input-div"></div>
-				<div className="login-btn-container">
+				<div id="login-btn-container">
 					<button>{isLoading ? "Loading..." : "Sign In"}</button>
 				</div>
 				{errors.length > 0 ? (
 					<>
 						<div className="login-input-div"></div>
-						<ul className="login-errors">{errorList}</ul>
+						<ul id="login-errors">{errorList}</ul>
 					</>
 				) : null}
 			</form>
