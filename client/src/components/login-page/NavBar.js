@@ -2,9 +2,10 @@ import React from "react";
 import "./NavBar.css"
 
 function NavBar() {
+
 	return (
-		<div className="navbar">
-			<p>Nav Bar</p>
+		<div id="navbar">
+			<button id="nav-about">About</button>
 		</div>
 	)
 }
