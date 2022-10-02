@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./EditRecord.css";
 
 function EditRecord({ record, mode, setMode, onEditRecord }) {
-	const [formData, setFormData] = useState(record);
+	const initializedForm = {
+			email: "",
+			phone: "",
+			first_name: "",
+			last_name: ""
+	}
+	const [formData, setFormData] = useState(initializedForm);
+
+	const categoryHeader = record.category[0].toUpperCase() + record.category.slice(1, record.category.length - 1);
 
 	useEffect(() => {
 		setFormData({
@@ -73,7 +81,7 @@ function EditRecord({ record, mode, setMode, onEditRecord }) {
 
 	return (
 		<div id="edit-record">
-			<h2>Edit Record</h2>
+			<h2>Edit {categoryHeader}</h2>
 			<form id="edit-record-form" onSubmit={handleSubmit}>
 				<label>First Name:
 					<input

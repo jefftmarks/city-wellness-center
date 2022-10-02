@@ -1,13 +1,29 @@
-#admin-portal {
-	width: 100vw;
-	height: 100vh;
-	/* padding-top: 15px; */
+#admin-portal-container {
+	width: 100%;
+	height: 100%;
 	display: flex;
 	flex-wrap: wrap;
 }
 
+#admin-portal-header {
+	width: 100%;
+	height: 70px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#admin-portal-header button {
+	height: 21.33px;
+	width: 80px;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
+	margin-left: 20px;
+}
+
 #admin-left-panel, #admin-right-panel {
-	/* width: 50%; */
 	min-width: 500px;
 	height: 100%;
 	flex-grow: 1;
@@ -20,12 +36,10 @@
 
 #admin-left-panel {
 	width: 60%;
-	/* border: 1px solid red; */
 }
 
 #admin-right-panel {
 	width: 40%;
-	/* border: 1px solid green; */
 }
 
 .admin-portal-div {
@@ -33,8 +47,6 @@
 }
 
 #admin-display-container {
-	border: 1px solid black;
 	height: 710px;
 	width: 90%;
-	padding: 21.33px;
 }

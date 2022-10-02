@@ -1,3 +1,10 @@
+#edit-appt {
+	padding: 18px;
+	border: 1px solid black;
+	height: 100%;
+	width: 100%;
+}
+
 #edit-appt h2 {
 	margin: 0;
 }

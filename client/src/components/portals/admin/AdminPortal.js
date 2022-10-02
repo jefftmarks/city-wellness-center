@@ -5,11 +5,12 @@ import EditAppointment from "./EditAppointment";
 import CreateAppointment from "./CreateAppointment";
 import EditRecord from "./EditRecord";
 import CreateRecord from "./CreateRecord";
+import EditAdminProfile from "./EditAdminProfile";
 import "./AdminPortal.css";
 
 const today = new Date().toISOString().slice(0, 10);
 
-function AdminPortal() {
+function AdminPortal({ onClickSignOut, user }) {
 	const [display, setDisplay] = useState({page: ""});
 	const [mode, setMode] = useState("");
 
@@ -57,6 +58,14 @@ function AdminPortal() {
 						onEditRecord={handleUpdateRecords}
 					/>
 				)
+			case "edit-profile":
+				return (
+					<EditAdminProfile
+						user={display.user}
+						setMode={setMode}
+						setDisplay={setDisplay}
+					/>
+				)
 			default:
 				return null;
 		}
@@ -72,30 +81,41 @@ function AdminPortal() {
 		setDisplay({page: ""});
 	}
 
+	function onClickEditProfile() {
+		setMode("edit");
+		setDisplay({page: "edit-profile", user: user});
+	}
+
 	return (
 		<div id="admin-portal">
-			<div id="admin-left-panel">
-				<AdminAppointmentsTable
-					date={date}
-					setDate={setDate}
-					setDisplay={setDisplay}
-					mode={mode}
-					setMode={setMode}
-				/>
-				<div className="admin-portal-div"></div>
-				<PatientsDoctorsTable
-					setDisplay={setDisplay}
-					mode={mode}
-					setMode={setMode}
-					setPatient={setApptPatient}
-					setDoctor={setApptDoctor}
-					category={category}
-					setCategory={setCategory}
-				/>
+			<div id="admin-portal-header">
+				<button onClick={onClickEditProfile}>Edit Profile</button>
+				<button onClick={onClickSignOut}>Sign Out</button>
 			</div>
-			<div id="admin-right-panel">
-				<div id="admin-display-container">
-					{renderDisplay()}
+			<div id="admin-portal-container">
+				<div id="admin-left-panel">
+					<AdminAppointmentsTable
+						date={date}
+						setDate={setDate}
+						setDisplay={setDisplay}
+						mode={mode}
+						setMode={setMode}
+					/>
+					<div className="admin-portal-div"></div>
+					<PatientsDoctorsTable
+						setDisplay={setDisplay}
+						mode={mode}
+						setMode={setMode}
+						setPatient={setApptPatient}
+						setDoctor={setApptDoctor}
+						category={category}
+						setCategory={setCategory}
+					/>
+				</div>
+				<div id="admin-right-panel">
+					<div id="admin-display-container">
+						{renderDisplay()}
+					</div>
 				</div>
 			</div>
 		</div>
