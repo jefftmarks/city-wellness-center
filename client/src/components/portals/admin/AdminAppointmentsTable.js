@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Appointment from "./Appointment";
-import "./AppointmentsTable.css";
+import AdminAppointment from "./AdminAppointment";
+import "./AdminAppointmentsTable.css";
 
 const today = new Date().toISOString().slice(0, 10);
 
@@ -12,7 +12,7 @@ const dummyData = [
 	{id: 5, time: "11:00", date: today, patient: "Jeff Marks", doctor: "Thierry Yabre"},
 ]
 
-function AppointmentsTable({ date, setDate, setDisplay, mode, setMode }) {
+function AdminAppointmentsTable({ date, setDate, setDisplay, mode, setMode }) {
 	const [appointments, setAppointments] = useState(dummyData);
 
 	// useEffect(() => {
@@ -25,25 +25,44 @@ function AppointmentsTable({ date, setDate, setDisplay, mode, setMode }) {
 	// 		})
 	// }, [date])
 
+	function handleAlert() {
+		switch (mode) {
+			case "edit":
+				alert("You've made changes to the record. Please submit or discard your changes before proceeding.");
+				return false;
+			case "create-appointment":
+				alert("Please submit or discard the new appointment before proceeding.");
+				return false;
+			case "create-record":
+				alert("Please submit or discard the new record before proceeding.");
+				return false;
+			default:
+				return true;
+		}
+	}
+
 	function handleClickAppointment(appt) {
-		if (mode === "edit") {
-			alert("You've made changes to the record. Please submit or discard your changes before proceeding.");
-		} else if (mode === "create") {
-			alert("Please submit or discard the new appointment before proceeding.");
-		} else {
+		if (handleAlert()) {
 			const payload = {data: appt, page: "appointment-edit"};
 			setDisplay(payload);
 		}
 	}
 
 	function onClickCreateAppointment() {
-		setDisplay({page: "appointment-new"});
-		setMode("create");
+		if (handleAlert()) {
+			setDisplay({page: "appointment-new"});
+			setMode("create-appointment");
+		}
 	}
 
 	return (
 		<div id="appts-table-container">
-			<h2>Appointments</h2>
+			<div id="appts-table-header">
+				<h2>Appointments</h2>
+				<button onClick={onClickCreateAppointment}>
+					Create Appointment
+				</button>
+			</div>
 			<input
 				type="date"
 				onChange={(e) => setDate(e.target.value)}
@@ -57,7 +76,7 @@ function AppointmentsTable({ date, setDate, setDisplay, mode, setMode }) {
 						<th style={{width: "43%"}}>Doctor</th>
 					</tr>
 					{appointments.map((appt) => (
-						<Appointment
+						<AdminAppointment
 							key={appt.id}
 							appt={appt}
 							handleOnClick={handleClickAppointment}
@@ -65,11 +84,8 @@ function AppointmentsTable({ date, setDate, setDisplay, mode, setMode }) {
 					))}
 				</tbody>
 			</table>
-			<button onClick={onClickCreateAppointment}>
-				Create Appointment
-			</button>
 		</div>
 	)
 }
 
-export default AppointmentsTable;
+export default AdminAppointmentsTable;

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Appointment({ appt, handleOnClick }) {
+function AdminAppointment({ appt, handleOnClick }) {
 	return (
 		<tr onClick={() => handleOnClick(appt)}>
 			<td>{appt.time}</td>
@@ -10,4 +10,4 @@ function Appointment({ appt, handleOnClick }) {
 	)
 }
 
-export default Appointment;
+export default AdminAppointment;

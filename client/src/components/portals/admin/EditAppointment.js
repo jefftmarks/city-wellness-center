@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./EditAppointment.css";
 
-function EditAppointment({ appt, onEditAppointment, setMode }) {
+function EditAppointment({ appt, onEditAppointment, mode, setMode }) {
 	const [formData, setFormData] = useState(appt);
 
 	useEffect(() => {
@@ -30,7 +30,6 @@ function EditAppointment({ appt, onEditAppointment, setMode }) {
 		// })
 		// 	.then((res) => {
 		// 		if (res.ok) {
-		// 			// rerender portal?
 		// 			res.json().then((appt) => {
 		// 				console.log(appt);
 		// 				setMode("");
@@ -53,7 +52,7 @@ function EditAppointment({ appt, onEditAppointment, setMode }) {
 		// 	.then((res) => {
 		// 		if (res.ok) {
 		// 			// rerender portal?
-		// 			res.json().then((res) => {
+		// 			res.json().then((data) => {
 		// 				setMode("");
 		// 				onEditAppointment(appt.date);
 		// 			});
@@ -62,6 +61,12 @@ function EditAppointment({ appt, onEditAppointment, setMode }) {
 		// 			res.json().then((errors) => console.log(errors));
 		// 		}
 		// 	})
+	}
+
+	function handleDiscardChanges(event) {
+		event.preventDefault();
+		setMode("");
+		onEditAppointment(appt.date);
 	}
 
 	return (
@@ -84,12 +89,15 @@ function EditAppointment({ appt, onEditAppointment, setMode }) {
 					required
 					type="time"
 					name="time"
+					id="edit-appt-time"
 					onChange={handleChange}
 					value={formData.time}
 					/>
 				</label>
-				<button>Submit Changes</button>
-				<button onClick={() => setMode("")}>Discard Changes</button>
+				<button disabled={mode !== "edit"}>Submit Changes</button>
+				<button onClick={handleDiscardChanges}>
+					{mode === "edit" ? "Discard Changes" : "Back"}
+				</button>
 				<button onClick={handleDeleteAppointment}>Delete Appointment</button>
 			</form>
 		</div>
