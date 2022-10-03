@@ -10,7 +10,7 @@ import "./AdminPortal.css";
 
 const today = new Date().toISOString().slice(0, 10);
 
-function AdminPortal({ onClickSignOut, user }) {
+function AdminPortal({ handleClickSignOut, user }) {
 	const [display, setDisplay] = useState({page: ""});
 	const [mode, setMode] = useState("");
 
@@ -82,8 +82,32 @@ function AdminPortal({ onClickSignOut, user }) {
 	}
 
 	function onClickEditProfile() {
-		setMode("edit");
-		setDisplay({page: "edit-profile", user: user});
+		if (handleAlert()) {
+			setMode("edit");
+			setDisplay({page: "edit-profile", user: user});
+		}
+	}
+
+	function onClickSignOut() {
+		if (handleAlert()) {
+			handleClickSignOut();
+		}
+	}
+
+	function handleAlert() {
+		switch (mode) {
+			case "edit":
+				alert("You've made changes to the record. Please submit or discard your changes before proceeding.");
+				return false;
+			case "create-appointment":
+				alert("Please submit or discard the new appointment before proceeding.");
+				return false;
+			case "create-record":
+				alert("Please submit or discard the new record before proceeding.");
+				return false;
+			default:
+				return true;
+		}
 	}
 
 	return (
@@ -98,7 +122,7 @@ function AdminPortal({ onClickSignOut, user }) {
 						date={date}
 						setDate={setDate}
 						setDisplay={setDisplay}
-						mode={mode}
+						handleAlert={handleAlert}
 						setMode={setMode}
 					/>
 					<div className="admin-portal-div"></div>

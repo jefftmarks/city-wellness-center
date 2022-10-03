@@ -9,7 +9,7 @@ import NavBar from "./components/login-page/NavBar";
 
 function App() {
 	const [user, setUser] = useState({
-		role: "admin",
+		role: "doctor",
 		email: "admin@admin.org",
 		password: "12345",
 		id: 1
@@ -51,13 +51,13 @@ function App() {
 			case "doctor":
 				return (
 					<div className="portal-container">
-						<DoctorPortal />
+						<DoctorPortal user={user} />
 					</div>
 				);
 			case "admin":
 				return (
 					<div className="portal-container">
-						<AdminPortal onClickSignOut={handleLogout} user={user} />
+						<AdminPortal handleClickSignOut={handleLogout} user={user} />
 					</div>
 				);
 			default:

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Record from "./Record";
+import Record from "../Record";
 import "./PatientsDoctorsTable.css";
 
 const patients = [

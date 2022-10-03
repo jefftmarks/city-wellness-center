@@ -1,0 +1,52 @@
+#dr-portal-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#dr-portal-header {
+	width: 100%;
+	height: 70px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#dr-portal-header button {
+	height: 21.33px;
+	width: 80px;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
+	margin-left: 20px;
+}
+
+#dr-left-panel, #dr-right-panel {
+	min-width: 500px;
+	height: 100%;
+	flex-grow: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#dr-left-panel {
+	width: 60%;
+}
+
+#dr-right-panel {
+	width: 40%;
+}
+
+.dr-portal-div {
+	height: 30px;
+}
+
+#dr-display-container {
+	height: 710px;
+	width: 90%;
+}
