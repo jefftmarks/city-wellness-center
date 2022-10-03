@@ -16,13 +16,16 @@ const patients = [
 	]}
 ]
 
-function PatientDisplay({ record, recordType }) {
+function PatientDisplay({ record, mode, setMode, appointment, setAppointment, handleAlert }) {
 	const [patient, setPatient] = useState({});
-	const [appointment, setAppointment] = useState({});
+	const [status, setStatus] = useState("");
+	const [notes, setNotes] = useState("");
 
-	let formattedDate = "";
+	let formattedDate;
+	let formattedTime;
 
 	if (appointment.date) {
+		// reformat date
 		let str = appointment.date;
 		let mm = str.slice(5, 7);
 		let dd;
@@ -33,16 +36,30 @@ function PatientDisplay({ record, recordType }) {
 		}
 		let yyyy = str.slice(0, 4);
 		formattedDate = `${mm}/${dd}/${yyyy}`;
+		
+		// reformat time
+		let hour = parseInt(appointment.time.slice(0, 2));
+		let minutes = appointment.time.slice(3, 5);
+		if (hour === 0) {
+			formattedTime = `12:${minutes} AM`;
+		} else if (hour === 12) {
+			formattedTime = `12:${minutes} PM`;
+		} else if (hour > 0 && hour < 12) {
+			formattedTime = `${hour}:${minutes} AM`;
+		} else {
+			formattedTime = `${hour - 12}:${minutes} PM`;
+		}
 	}
 
 	useEffect(() => {
-		const patient = patients[record.patient_id - 1]
+		let id = record.type === "appt" ? record.patient_id : record.id; 
+		const patient = patients[id - 1];
 		setPatient(patient);
-		if (recordType === "appt") {
-			setAppointment(record);
-		}
+		setAppointment(record);
+		setStatus(patient.status);
+		setNotes(record.notes);
 		// setPatient(patients[record.patient_id + 1]);
-		// fetch(`/patients/${record.patient_id}`)
+		// fetch(`/patients/${id}`)
 		// 	.then((res) => {
 		// 		if (res.ok) {
 		// 			res.json().then((patient) => setPatient(patient));
@@ -53,21 +70,110 @@ function PatientDisplay({ record, recordType }) {
 		// 	})
 	}, [record]);
 
+	function handleSubmitStatus(event) {
+		event.preventDefault();
+		setMode("");
+		setPatient({...patient, status: status});
+		// fetch(`patients/${patient.id}`, {
+		// 	method: "PATCH",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// 	body: JSON.stringify({status: status}),
+		// })
+		// 	.then((res) => {
+		// 		if (res.ok) {
+		// 			res.json().then((patient) => {
+		// 				setMode("");
+		// 				setPatient(patient);
+		// 			});
+		// 		} else {
+		// 			res.json().then((errors) => console.log(errors));
+		// 		}
+		// 	})
+	}
+
+	function handleSubmitNotes(event) {
+		event.preventDefault();
+		setMode("");
+		setAppointment({...appointment, notes: notes});
+		// fetch(`appontment/${appointment.id}`, {
+		// 	method: "PATCH",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// 	body: JSON.stringify({notes: notes}),
+		// })
+		// 	.then((res) => {
+		// 		if (res.ok) {
+		// 			res.json().then((appointment) => {
+		// 				setMode("");
+		// 				setAppointment(appointment);
+		// 			});
+		// 		} else {
+		// 			res.json().then((errors) => console.log(errors));
+		// 		}
+		// 	})
+	}
+
+	function handleClickAppointment(appointment) {
+		if (handleAlert()) {
+			setAppointment(appointment);
+		}
+	}
+
 	if (patient) return (
 		<div id="patient-display">
 			<h2>Patient: {patient.first_name} {patient.last_name}</h2>
 			<p>Phone: {patient.phone}</p>
 			<p>Email: {patient.email}</p>
-			<p>Status:</p>
-			<p>{patient.status}</p>
+			<div id="status-container">
+				<p>Status:</p>
+				{mode === "edit-status" ? (
+					<form onSubmit={handleSubmitStatus}><button>Submit</button></form>
+				) : (
+					<button onClick={() => setMode("edit-status")}>Edit Status</button>
+				)}
+			</div>
+			{mode === "edit-status" ? (
+				<textarea
+					id="edit-status-field"
+					onChange={(event) => setStatus(event.target.value)}
+					value={status}
+				>
+				</textarea>
+			) : (
+				<p id="status-text">{patient.status}</p>
+			)}
 			<div id="patient-display-line"></div>
-			<p>Patient History:</p>
-			<p>Appointment: {formattedDate} at {appointment.time}</p>
-			<p>Notes:</p>
-			<p>{appointment.notes}</p>
+			<h3>Patient History:</h3>
+			{appointment.date ? (
+				<div id="appt-notes">
+					<div id="notes-header-container">
+						<p id="notes-header">Notes &#8211; {formattedDate} at {formattedTime}</p>
+						{mode === "edit-notes" ? (
+							<form onSubmit={handleSubmitNotes}><button>Submit</button></form>
+						) : (
+							<button onClick={() => setMode("edit-notes")} >Edit Notes</button>
+						)}
+					</div>
+					{mode === "edit-notes" ? (
+						<textarea
+						id="edit-notes-field"
+						onChange={(event) => setNotes(event.target.value)}
+						value={notes}
+						>
+						</textarea>
+					) : (
+						<p id="notes-text">{appointment.notes}</p>
+					)}
+				</div>
+			) : null}
+			<p>Select Appointment Below to View Notes:</p>
 			<PatientHistory
+				selected={appointment.id}
 				appointments={patient.appointments}
-				setAppointment={setAppointment}
+				handleClickAppointment={handleClickAppointment}
 			/>
 		</div>
 	);

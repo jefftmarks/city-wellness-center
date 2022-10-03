@@ -12,23 +12,23 @@ const dummyData = [
 	{id: 5, time: "11:00", date: today, patient_id: 1, patient: "Jeff Marks", notes: "Talked about mother."}
 ]
 
-function DocAppointmentsTable({ setDisplay, setMode, handleAlert }) {
+function DocAppointmentsTable({ setDisplay, setMode, handleAlert, user }) {
 	const [date, setDate] = useState(today);
 	const [appointments, setAppointments] = useState(dummyData);
 
 	// useEffect(() => {
-	// 	fetch(`/appointments/doctor/date/${date}`)
+	// 	fetch(`/appointments/doctor/${user.id}/date/${date}`)
 	// 		.then((res) => {
 	// 			if (res.ok) {
 	// 				res.json().then((appts) => setAppointments(appts));
 	// 			}
 	// 			// errors necessary?
 	// 		})
-	// }, [date])
+	// }, [date, user])
 
-	function handleClickAppointment(appt) {
+	function handleClickAppointment(appointment) {
 		if (handleAlert()) {
-			const payload = {data: appt, record_type: "appt", page: "patient"};
+			const payload = {data: {...appointment, type: "appt" }, page: "patient"};
 			setDisplay(payload);
 		}
 	}
@@ -54,10 +54,10 @@ function DocAppointmentsTable({ setDisplay, setMode, handleAlert }) {
 						<th style={{width: "14%"}}>Time</th>
 						<th style={{width: "86%"}} >Patient</th>
 					</tr>
-					{appointments.map((appt) => (
+					{appointments.map((appointment) => (
 						<DocAppointment
-							key={appt.id}
-							appt={appt}
+							key={appointment.id}
+							appointment={appointment}
 							handleOnClick={handleClickAppointment}
 						/>
 					))}

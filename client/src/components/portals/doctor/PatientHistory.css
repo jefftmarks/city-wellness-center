@@ -4,6 +4,10 @@
 	width: 100%;
 }
 
+#history-table h3 {
+	margin: 0 0 20px 0;
+}
+
 #history-table th {
   text-align: left;
 	padding: 8px;
