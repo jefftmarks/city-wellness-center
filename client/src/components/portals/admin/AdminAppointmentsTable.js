@@ -12,7 +12,7 @@ const dummyData = [
 	{id: 5, time: "11:00", date: today, patient: "Jeff Marks", doctor: "Thierry Yabre"},
 ]
 
-function AdminAppointmentsTable({ date, setDate, setDisplay, mode, setMode }) {
+function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAlert }) {
 	const [appointments, setAppointments] = useState(dummyData);
 
 	// useEffect(() => {
@@ -24,22 +24,6 @@ function AdminAppointmentsTable({ date, setDate, setDisplay, mode, setMode }) {
 	// 			// errors necessary?
 	// 		})
 	// }, [date])
-
-	function handleAlert() {
-		switch (mode) {
-			case "edit":
-				alert("You've made changes to the record. Please submit or discard your changes before proceeding.");
-				return false;
-			case "create-appointment":
-				alert("Please submit or discard the new appointment before proceeding.");
-				return false;
-			case "create-record":
-				alert("Please submit or discard the new record before proceeding.");
-				return false;
-			default:
-				return true;
-		}
-	}
 
 	function handleClickAppointment(appt) {
 		if (handleAlert()) {

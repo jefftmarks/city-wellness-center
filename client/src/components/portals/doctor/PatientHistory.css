@@ -1,0 +1,28 @@
+#history-table {
+	/* margin-top: 18px; */
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#history-table th {
+  text-align: left;
+	padding: 8px;
+	background-color: white;
+}
+
+#history-table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#history-table tr:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+#history-table tr:hover {
+	background-color: #ddd;
+}
+
+#history-table tr.selected {
+	background-color: #adff2f;
+}
