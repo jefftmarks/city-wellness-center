@@ -3,8 +3,10 @@ import React from "react";
 function PatientAppointment({ appointment, handleOnClick, selected }) {
 
 	let formattedDate;
+	let formattedTime;
 
-	if (appointment) {
+	if (appointment.date) {
+		// reformat date
 		let str = appointment.date;
 		let mm = str.slice(5, 7);
 		let dd;
@@ -15,6 +17,19 @@ function PatientAppointment({ appointment, handleOnClick, selected }) {
 		}
 		let yyyy = str.slice(0, 4);
 		formattedDate = `${mm}/${dd}/${yyyy}`;
+		
+		// reformat time
+		let hour = parseInt(appointment.time.slice(0, 2));
+		let minutes = appointment.time.slice(3, 5);
+		if (hour === 0) {
+			formattedTime = `12:${minutes} AM`;
+		} else if (hour === 12) {
+			formattedTime = `12:${minutes} PM`;
+		} else if (hour > 0 && hour < 12) {
+			formattedTime = `${hour}:${minutes} AM`;
+		} else {
+			formattedTime = `${hour - 12}:${minutes} PM`;
+		}
 	}
 
  	return (
@@ -23,7 +38,7 @@ function PatientAppointment({ appointment, handleOnClick, selected }) {
 			className={selected === appointment.id ? "selected" : null}
 		>
 			<td>{formattedDate}</td>
-			<td>{appointment.time}</td>
+			<td>{formattedTime}</td>
 		</tr>
 	)
 }

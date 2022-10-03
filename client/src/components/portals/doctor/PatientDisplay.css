@@ -11,4 +11,60 @@
 
 #patient-display-line {
 	border-bottom: 1px solid black;
+	margin: 25px 0;
+}
+
+#appt-notes {
+	border: 1px solid black;
+	padding: 10px;
+	margin: 20px 0;
+}
+
+#notes-header-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+#notes-header {
+	font-weight: bold;
+	margin: 0;
+}
+
+#notes-text {
+	margin: 0;
+}
+
+#status-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#status-container p {
+	margin: 0;
+}
+
+#patient-display button {
+	height: 21.33px;
+	width: 100px;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
+}
+
+#status-text {
+	margin-top: 10px;
+}
+
+#edit-status-field {
+	margin-top: 15px;
+	width: 100%;
+}
+
+#edit-notes-field {
+	/* margin-top: 15px; */
+	width: 100%;
 }

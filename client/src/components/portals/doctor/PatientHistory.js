@@ -1,14 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PatientAppointment from "./PatientAppointment";
 import "./PatientHistory.css";
 
-function PatientHistory({ appointments, setAppointment }) {
-	const [selected, setSelected] = useState(null);
-
-	function handleClickAppointment(appointment) {
-		setSelected(appointment.id);
-		setAppointment(appointment)
-	}
+function PatientHistory({ appointments, handleClickAppointment, selected}) {
 
 	if (!appointments) return <p>Loading...</p>
 

@@ -7,11 +7,7 @@ import "./DoctorPortal.css";
 function DoctorPortal({ user }) {
 	const [display, setDisplay] = useState({page: ""});
 	const [mode, setMode] = useState("");
-
-	
-
-	// const [apptPatient, setApptPatient] = useState(null);
-	// const [apptDoctor, setApptDoctor] = useState(null);
+	const [appointment, setAppointment] = useState({});
 
 	function renderDisplay() {
 		switch (display.page) {
@@ -19,39 +15,13 @@ function DoctorPortal({ user }) {
 				return (
 					<PatientDisplay
 						record={display.data}
-						recordType ={display.record_type}
-						// mode={mode}
-						// setMode={setMode}
-						// onEditRecord={handleUpdateRecords}
+						mode={mode}
+						setMode={setMode}
+						appointment={appointment}
+						setAppointment={setAppointment}
+						handleAlert={handleAlert}
 					/>
 				);
-			// case "appointment-new":
-			// 	return (
-			// 		<CreateAppointment
-			// 			mode={mode}
-			// 			setMode={setMode}
-			// 			patient={apptPatient}
-			// 			doctor={apptDoctor}
-			// 			onEditAppointment={handleUpdateAppointments}
-			// 		/>
-			// 	)
-			// case "record-edit":
-			// 	return (
-			// 		<EditRecord
-			// 			record={display.data}
-			// 			mode={mode}
-			// 			setMode={setMode}
-			// 			onEditRecord={handleUpdateRecords}
-			// 		/>
-			// 	);
-			// case "record-new":
-			// 	return (
-			// 		<CreateRecord
-			// 			category={display.category}
-			// 			setMode={setMode}
-			// 			onEditRecord={handleUpdateRecords}
-			// 		/>
-			// 	)
 			// case "edit-profile":
 			// 	return (
 			// 		<EditAdminProfile
@@ -64,11 +34,6 @@ function DoctorPortal({ user }) {
 				return null;
 		}
 	}
-
-	// function handleUpdateRecords(newCategory = category) {
-	// 	setCategory(newCategory);
-	// 	setDisplay({page: ""});
-	// }
 
 	// function onClickEditProfile() {
 	// 	if (handleAlert()) {
@@ -84,12 +49,11 @@ function DoctorPortal({ user }) {
 	// }
 
 	function handleAlert() {
-		switch (mode) {
-			case "edit":
-				alert("You've made changes to the record. Please submit or discard your changes before proceeding.");
-				return false;
-			default:
-				return true;
+		if (mode === "edit-status" || mode === "edit-notes") {
+			alert("You've made changes to the record. Please submit your changes before proceeding.");
+			return false;
+		} else {
+			return true;
 		}
 	}
 
@@ -109,7 +73,9 @@ function DoctorPortal({ user }) {
 						/>
 					<div className="dr-portal-div"></div>
 					<PatientsTable
-						// setDisplay={setDisplay}
+						user={user}
+						handleAlert={handleAlert}
+						setDisplay={setDisplay}
 						// mode={mode}
 						// setMode={setMode}
 					/>
