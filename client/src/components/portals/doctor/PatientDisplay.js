@@ -119,6 +119,7 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 	function handleClickAppointment(appointment) {
 		if (handleAlert()) {
 			setAppointment(appointment);
+			setNotes(appointment.notes)
 		}
 	}
 
