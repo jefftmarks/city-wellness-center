@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CreateRecord.css";
 
-function CreateRecord({ category, setMode, onEditRecord }) {
+function CreateRecord({ category, setMode, onCreateRecord }) {
 	const intializedForm = {
 		first_name: "",
 		last_name: "",
@@ -26,7 +26,6 @@ function CreateRecord({ category, setMode, onEditRecord }) {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		setMode("");
 		fetch(`/${category}`, {
 			method: "POST",
 			headers: {
@@ -37,10 +36,10 @@ function CreateRecord({ category, setMode, onEditRecord }) {
 			.then((res) => {
 				if (res.ok) {
 					res.json().then((record) => {
-						setMode("");
-						onEditRecord(category);
+						onCreateRecord(record);
 					});
 				} else {
+					// figure out error handling
 					res.json().then((data) => setErrors(data.errors));
 				}
 			})
@@ -48,8 +47,7 @@ function CreateRecord({ category, setMode, onEditRecord }) {
 
 	function handleDiscardChanges(event) {
 		event.preventDefault();
-		setMode("");
-		onEditRecord();
+		onCreateRecord();
 	}
 
 	return (

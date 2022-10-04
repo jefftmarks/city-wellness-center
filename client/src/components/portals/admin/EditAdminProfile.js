@@ -23,8 +23,6 @@ function EditAdminProfile({ user, setMode, setDisplay }) {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		// setMode("");
-		// setDisplay("");
 		fetch(`/admins/${user.id}`, {
 			method: "PATCH",
 			headers: {
@@ -35,9 +33,8 @@ function EditAdminProfile({ user, setMode, setDisplay }) {
 			.then((res) => {
 				if (res.ok) {
 					res.json().then((record) => {
-						console.log(record)
-						// console.log(record);
-						// setMode("");
+						setMode("");
+						setDisplay("");
 					});
 				} else {
 					res.json().then((data) => setErrors(data));

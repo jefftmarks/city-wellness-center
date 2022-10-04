@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./EditRecord.css";
 
-function EditRecord({ record, mode, setMode, onEditRecord }) {
+function EditRecord({ record, mode, setMode, onEditRecord, onDeleteRecord }) {
 	const initializedForm = {
 			email: "",
 			phone: "",
@@ -29,54 +29,35 @@ function EditRecord({ record, mode, setMode, onEditRecord }) {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		setMode("");
-		onEditRecord(record.category)
-		// fetch(`/${record.category}/${record.id}`, {
-		// 	method: "PATCH",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify(formData),
-		// })
-		// 	.then((res) => {
-		// 		if (res.ok) {
-		// 			res.json().then((record) => {
-		// 				console.log(record);
-		// 				setMode("");
-		// 				onEditRecord(record.category)
-		// 			});
-		// 		} else {
-		// 			// figure out error handling
-		// 			res.json().then((errors) => console.log(errors));
-		// 		}
-		// 	})
+		fetch(`/${record.category}/${record.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((record) => onEditRecord(record));
+				} else {
+					// figure out error handling
+					res.json().then((errors) => console.log(errors));
+				}
+			})
 	}
 
 	function handleDeleteRecord(event) {
 		event.preventDefault();
-		setMode("");
-		onEditRecord(record.category)
-		// fetch (`/appointments/${appt.id}`, {
-		// 	method: "DELETE",
-		// })
-		// 	.then((res) => {
-		// 		if (res.ok) {
-		// 			// rerender portal?
-		// 			res.json().then((data) => {
-		// 				setMode("");
-		// 				onEditAppointment(appt.date);
-		// 			});
-		// 		} else {
-		// 			// figure out error handling
-		// 			res.json().then((errors) => console.log(errors));
-		// 		}
-		// 	})
+		fetch (`/${record.category}/${record.id}`, {
+			method: "DELETE",
+		})
+			.then((res) => res.json())
+			.then(() => onDeleteRecord(record));
 	}
 
 	function handleDiscardChanges(event) {
 		event.preventDefault();
-		setMode("");
-		onEditRecord(record.category)
+		onEditRecord();
 	}
 
 	return (
