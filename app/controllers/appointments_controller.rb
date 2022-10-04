@@ -33,7 +33,7 @@ class AppointmentsController < ApplicationController
 
   def destroy
     @appointment.destroy
-    head :no_content
+    render json: @appointment
   end
 
   private

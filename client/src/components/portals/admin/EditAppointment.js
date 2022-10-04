@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react"; 
-import { useNavigate } from "react-router-dom";
 import "./EditAppointment.css";
 
-function EditAppointment({ appointment, onEditAppointment, mode, setMode }) {
+function EditAppointment({ appointment, onEditAppointment, onDeleteAppointment, mode, setMode }) {
 	const [formData, setFormData] = useState(appointment);
-
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		setFormData(appointment);
@@ -31,10 +28,7 @@ function EditAppointment({ appointment, onEditAppointment, mode, setMode }) {
 		})
 			.then((res) => {
 				if (res.ok) {
-					res.json().then((appointment) => {
-						setMode("");
-						onEditAppointment(formData.date)
-					});
+					res.json().then((appointment) => onEditAppointment(appointment));
 				} else {
 					// figure out error handling
 					res.json().then((errors) => console.log(errors));
@@ -43,13 +37,12 @@ function EditAppointment({ appointment, onEditAppointment, mode, setMode }) {
 	}
 
 	function handleDeleteAppointment(event) {
+		event.preventDefault();
 		fetch (`/appointments/${appointment.id}`, {
 			method: "DELETE",
 		})
-			.then(() => {
-				setMode("");
-				onEditAppointment();
-			});
+			.then((res) => res.json())
+			.then(() => onDeleteAppointment(appointment));
 	}
 
 	function handleDiscardChanges(event) {

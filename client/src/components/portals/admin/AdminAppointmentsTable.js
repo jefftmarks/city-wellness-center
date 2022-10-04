@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import AdminAppointment from "./AdminAppointment";
 import "./AdminAppointmentsTable.css";
 
-function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAlert }) {
-	const [appointments, setAppointments] = useState([]);
+function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAlert, setAppointments, appointments }) {
 
 	useEffect(() => {
 		fetch(`/appointments/date/${date}`)

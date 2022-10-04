@@ -20,6 +20,8 @@ function AdminPortal({ handleClickSignOut, user }) {
 	const [apptPatient, setApptPatient] = useState(null);
 	const [apptDoctor, setApptDoctor] = useState(null);
 
+	const [appointments, setAppointments] = useState([]);
+
 	function renderDisplay() {
 		switch (display.page) {
 			case "appointment-edit":
@@ -29,16 +31,16 @@ function AdminPortal({ handleClickSignOut, user }) {
 						onEditAppointment={handleUpdateAppointments}
 						mode={mode}
 						setMode={setMode}
+						onDeleteAppointment={handleDeleteAppointment}
 					/>
 				);
 			case "appointment-new":
 				return (
 					<CreateAppointment
-						mode={mode}
-						setMode={setMode}
 						patient={apptPatient}
 						doctor={apptDoctor}
-						onEditAppointment={handleUpdateAppointments}
+						onCreateAppointment={handleCreateAppointment}
+						onDeleteAppointment={handleDeleteAppointment}
 					/>
 				)
 			case "record-edit":
@@ -71,9 +73,34 @@ function AdminPortal({ handleClickSignOut, user }) {
 		}
 	}
 
-	function handleUpdateAppointments(date = today) {
-		setDate(date);
+	function handleCreateAppointment(appointment = null) {
+		setDisplay({page: ""})
+		setMode("");
+		setApptDoctor(null);
+		setApptPatient(null);
+		if (appointment) {
+			setAppointments([...appointments, appointment]);
+		}
+	}
+
+	function handleUpdateAppointments(newAppt) {
 		setDisplay({page: ""});
+		setMode("");
+		const updatedAppointments = appointments.map((appt) => {
+			if (appt.id === newAppt.id) {
+				return newAppt;
+			} else {
+				return appt;
+			}
+		})
+		setAppointments(updatedAppointments);
+	}
+
+	function handleDeleteAppointment(delAppt) {
+		setDisplay({page: ""});
+		setMode("");
+		const updatedAppointments = appointments.filter((appt) => appt.id !== delAppt.id);
+		setAppointments(updatedAppointments);
 	}
 
 	function handleUpdateRecords(newCategory = category) {
@@ -124,6 +151,8 @@ function AdminPortal({ handleClickSignOut, user }) {
 						setDisplay={setDisplay}
 						handleAlert={handleAlert}
 						setMode={setMode}
+						appointments={appointments}
+						setAppointments={setAppointments}
 					/>
 					<div className="admin-portal-div"></div>
 					<PatientsDoctorsTable

@@ -3,7 +3,7 @@ import "./CreateAppointment.css";
 
 const today = new Date().toISOString().slice(0, 10);
 
-function CreateAppointment({ mode, setMode, patient, doctor, onEditAppointment }) {
+function CreateAppointment({ patient, doctor, onCreateAppointment }) {
 	const intializedForm = {date: "", time: ""}
 	const [formData, setFormData] = useState(intializedForm);
 
@@ -33,9 +33,8 @@ function CreateAppointment({ mode, setMode, patient, doctor, onEditAppointment }
 			})
 				.then((res) => {
 					if (res.ok) {
-						res.json().then((newAppt) => {
-							setMode("");
-							onEditAppointment(newAppt.date);
+						res.json().then((appointment) => {
+							onCreateAppointment(appointment);
 						});
 					} else {
 						// figure out error handling
@@ -49,8 +48,7 @@ function CreateAppointment({ mode, setMode, patient, doctor, onEditAppointment }
 
 	function handleDiscardChanges(event) {
 		event.preventDefault();
-		setMode("");
-		onEditAppointment();
+		onCreateAppointment();
 	}
 
 	return (
