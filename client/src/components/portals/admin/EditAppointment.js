@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
+import { useNavigate } from "react-router-dom";
 import "./EditAppointment.css";
 
-function EditAppointment({ appt, onEditAppointment, mode, setMode }) {
-	const [formData, setFormData] = useState(appt);
+function EditAppointment({ appointment, onEditAppointment, mode, setMode }) {
+	const [formData, setFormData] = useState(appointment);
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		setFormData(appt);
-	}, [appt]);
+		setFormData(appointment);
+	}, [appointment]);
 
 	function handleChange(event) {
 		setMode("edit");
@@ -16,65 +19,51 @@ function EditAppointment({ appt, onEditAppointment, mode, setMode }) {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		setMode("");
-		onEditAppointment(formData.date)
-		// fetch(`/appointments/${appt.id}`, {
-		// 	method: "PATCH",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify({
-		// 		date: formData.date,
-		// 		time: formData.time,
-		// 	}),
-		// })
-		// 	.then((res) => {
-		// 		if (res.ok) {
-		// 			res.json().then((appt) => {
-		// 				console.log(appt);
-		// 				setMode("");
-		// 				onEditAppointment(formData.date)
-		// 			});
-		// 		} else {
-		// 			// figure out error handling
-		// 			res.json().then((errors) => console.log(errors));
-		// 		}
-		// 	})
+		fetch(`/appointments/${appointment.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				date: formData.date,
+				time: formData.time,
+			}),
+		})
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((appointment) => {
+						setMode("");
+						onEditAppointment(formData.date)
+					});
+				} else {
+					// figure out error handling
+					res.json().then((errors) => console.log(errors));
+				}
+			})
 	}
 
 	function handleDeleteAppointment(event) {
-		event.preventDefault();
-		setMode("");
-		onEditAppointment(appt.date);
-		// fetch (`/appointments/${appt.id}`, {
-		// 	method: "DELETE",
-		// })
-		// 	.then((res) => {
-		// 		if (res.ok) {
-		// 			// rerender portal?
-		// 			res.json().then((data) => {
-		// 				setMode("");
-		// 				onEditAppointment(appt.date);
-		// 			});
-		// 		} else {
-		// 			// figure out error handling
-		// 			res.json().then((errors) => console.log(errors));
-		// 		}
-		// 	})
+		fetch (`/appointments/${appointment.id}`, {
+			method: "DELETE",
+		})
+			.then(() => {
+				setMode("");
+				onEditAppointment();
+			});
 	}
 
 	function handleDiscardChanges(event) {
 		event.preventDefault();
 		setMode("");
-		onEditAppointment(appt.date);
+		onEditAppointment(appointment.date);
 	}
 
 	return (
 		<div id="edit-appt">
 			<h2>Edit Appointment</h2>
 			<form id="edit-appt-form" onSubmit={handleSubmit}>
-				<div>Patient: {appt.patient}</div>
-				<div>Doctor: {appt.doctor}</div>
+				<div>Patient: {appointment.patient.first_name} {appointment.patient.last_name}</div>
+				<div>Doctor: {appointment.doctor.first_name} {appointment.doctor.last_name}</div>
 				<label>Date:
 					<input
 					required

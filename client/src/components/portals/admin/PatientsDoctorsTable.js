@@ -32,12 +32,12 @@ function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor
 		}
 	}
 
-	// useEffect(() => {
-	// 	fetch(`/${category}`)
-	// 		.then((res) => res.json())
-	// 		.then((records) => setRecords(records))
-	// 		.catch((err) => console.error(err));
-	// }, [category]);
+	useEffect(() => {
+		fetch(`/${category}`)
+			.then((res) => res.json())
+			.then((records) => setRecords(records))
+			.catch((err) => console.error(err));
+	}, [category]);
 
 	function handleAlert() {
 		switch (mode) {
@@ -101,11 +101,10 @@ function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor
 		<table id="patients-drs-table">
 			<tbody>
 				<tr>
-					<th style={{width: "2%"}} >ID</th>
 					<th style={{width: "20%"}}>Last Name</th>
 					<th style={{width: "20%"}} >First Name</th>
 					<th style={{width: "17%"}} >Phone</th>
-					<th style={{width: "41%"}}>Email</th>
+					<th style={{width: "43%"}}>Email</th>
 				</tr>
 				{records.map((record) => (
 					<Record

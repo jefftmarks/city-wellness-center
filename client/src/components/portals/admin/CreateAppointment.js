@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./CreateAppointment.css";
 
+const today = new Date().toISOString().slice(0, 10);
+
 function CreateAppointment({ mode, setMode, patient, doctor, onEditAppointment }) {
 	const intializedForm = {date: "", time: ""}
 	const [formData, setFormData] = useState(intializedForm);
@@ -17,31 +19,29 @@ function CreateAppointment({ mode, setMode, patient, doctor, onEditAppointment }
 	function handleSubmit(event) {
 		event.preventDefault();
 		if (patient && doctor) {
-			setMode("");
-			onEditAppointment(formData.date);
-			// const newAppointment = {
-			// 	...formData,
-			// 	patient_id: patient.id,
-			// 	doctor_id: doctor.id
-			// };
-			// fetch("/appointments", {
-			// 	method: "POST",
-			// 	headers: {
-			// 		"Content-Type": "application/json",
-			// 	},
-			// 	body: JSON.stringify(newAppointment),
-			// })
-			// 	.then((res) => {
-			// 		if (res.ok) {
-			// 			res.json().then((newAppt) => {
-			// 				setMode("");
-			// 				onEditAppointment(newAppt.date);
-			// 			});
-			// 		} else {
-			// 			// figure out error handling
-			// 			res.json().then((errors) => console.log(errors));
-			// 		}
-			// 	})
+			const newAppointment = {
+				...formData,
+				patient_id: patient.id,
+				doctor_id: doctor.id
+			};
+			fetch("/appointments", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newAppointment),
+			})
+				.then((res) => {
+					if (res.ok) {
+						res.json().then((newAppt) => {
+							setMode("");
+							onEditAppointment(newAppt.date);
+						});
+					} else {
+						// figure out error handling
+						res.json().then((errors) => console.log(errors));
+					}
+				})
 		} else {
 			alert("Please select a patient and a doctor.")
 		}
@@ -76,10 +76,12 @@ function CreateAppointment({ mode, setMode, patient, doctor, onEditAppointment }
 					name="date"
 					onChange={handleChange}
 					value={formData.date}
+					min={today}
 					/>
 				</label>
 				<label>Time:
 					<input
+					id="create-appt-time-input"
 					required
 					type="time"
 					name="time"

@@ -19,28 +19,30 @@ function EditAdminProfile({ user, setMode, setDisplay }) {
 		setFormData({...formData, [name]: value});
 	}
 
+	console.log(user.id)
+
 	function handleSubmit(event) {
 		event.preventDefault();
-		setMode("");
-		setDisplay("");
-		// fetch(`/admin/${user.id}`, {
-		// 	method: "PATCH",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify(formData),
-		// })
-		// 	.then((res) => {
-		// 		if (res.ok) {
-		// 			res.json().then((record) => {
-		// 				console.log(record);
-		// 				setMode("");
-		// 			});
-		// 		} else {
-		// 			// figure out error handling
-		// 			res.json().then((data) => setErrors(data.errors));
-		// 		}
-		// 	})
+		// setMode("");
+		// setDisplay("");
+		fetch(`/admins/${user.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((record) => {
+						console.log(record)
+						// console.log(record);
+						// setMode("");
+					});
+				} else {
+					res.json().then((data) => setErrors(data));
+				}
+			})
 	}
 
 	function handleDiscardChanges(event) {

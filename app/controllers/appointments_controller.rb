@@ -1,51 +1,49 @@
 class AppointmentsController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
+	before_action :set_appointment, only: [:update, :destroy]
 
-  # GET /appointments
-  def index
-    appointments = Appointment.all
-    render json: appointments
-  end
+  # def index
+  #   appointments = Appointment.all
+  #   render json: appointments
+  # end
 
-  # GET /appointment/1
-  def show
-    appointment = find_params
-    render json: appointment, each_serializer:AppointmentsWithPatientsSerializer, serializer:AppointmentsWithDoctorsSerializer
-  end
+	def by_date
+		date = params[:date]
+		appointments = Appointment.where(date: date)
+		if appointments
+			render json: appointments, status: :ok
+		else
+			render json: { error: "Appointments not found" }, status: :not_found
+		end
+	end
 
-  # POST /appointment
+  # def show
+  #   appointment = find_params
+  #   render json: appointment
+  # end
+
   def create
-    appointment = create!(doctor_params)
-    render json: appointment, status:created
+    appointment = Appointment.create!(appointment_params)
+    render json: appointment, status: :created
   end
 
-  # PATCH/PUT /appointment/1
   def update
-    appointment = find_param
-    appointment.update(appointment_params)
-    render json: appointment, status:updated
+    @appointment.update!(appointment_params)
+    render json: @appointment, status: :accepted
   end
 
-  # DELETE /appointment/1
   def destroy
-    appointment = find_param
-    appointment.destroy
+    @appointment.destroy
     head :no_content
   end
 
   private
+
   def appointment_params
-    params.permit(:date, :time, :doctor_id, :patient_id)
+    params.permit(:id, :date, :time, :doctor_id, :patient_id)
   end
-  def find_params
-    Appointment.find(params[:id])
-  end
-  def render_not_found_response
-    render json:{error:"Appointment not found"}, status: :not_found 
-  end
-  def render_unprocessable_entity(exception)
-    render json: { errors: exception.record.error.full.messages }, status: :unprocessable_entity
+
+  def set_appointment
+    @appointment = Appointment.find(params[:id])
   end
 
 end

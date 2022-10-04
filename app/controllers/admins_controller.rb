@@ -1,25 +1,32 @@
 class AdminsController < ApplicationController
-  before_action :set_admin, only: [:show, :update, :destroy]
+  before_action :set_admin, only: [:update]
 
-  
-
-  
-  # PATCH/PUT /admins/1
   def update
-    if admin.update(admin_params)
-      render json: admin
+    if @admin.update(admin_params)
+      render json: @admin, status: :ok
     else
       render json: admin.errors, status: :unprocessable_entity
     end
   end
 
+	def login
+		user = Admin.find_by(email: params[:email])
+		if user&.authenticate(params[:password])
+			token = generate_token({user_id: user.id, role: "admin"})
+			render json: { user: user, token: token, role: "admin" }, status: :created
+		else
+			render json: { error: ["Invalid username or password"] }, status: :unauthorized
+		end
+	end
+
+	
+
   private
     def set_admin
-      admin = Admin.find(params[:id])
+      @admin = Admin.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def admin_params
-      params.require(:admin).permit(:first_name, :last_name, :email, :password_digest)
+      params.permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
 end
