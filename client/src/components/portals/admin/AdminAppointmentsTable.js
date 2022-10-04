@@ -2,32 +2,22 @@ import React, { useState, useEffect } from "react";
 import AdminAppointment from "./AdminAppointment";
 import "./AdminAppointmentsTable.css";
 
-const today = new Date().toISOString().slice(0, 10);
-
-const dummyData = [
-	{id: 1, time: "09:00", date: today, patient: "Jeff Marks", doctor: "Thierry Yabre"},
-	{id: 2, time: "10:00", date: today, patient: "Jeff Marks", doctor: "Thierry Yabre"},
-	{id: 3, time: "10:30", date: today, patient: "Bob Marks", doctor: "Thierry Yabre"},
-	{id: 4, time: "10:30", date: today, patient: "Jeff Marks", doctor: "Thierry Yabre"},
-	{id: 5, time: "11:00", date: today, patient: "Jeff Marks", doctor: "Thierry Yabre"},
-]
-
 function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAlert }) {
-	const [appointments, setAppointments] = useState(dummyData);
+	const [appointments, setAppointments] = useState([]);
 
-	// useEffect(() => {
-	// 	fetch(`/appointments/date/${date}`)
-	// 		.then((res) => {
-	// 			if (res.ok) {
-	// 				res.json().then((appts) => setAppointments(appts));
-	// 			}
-	// 			// errors necessary?
-	// 		})
-	// }, [date])
+	useEffect(() => {
+		fetch(`/appointments/date/${date}`)
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((appointments) => setAppointments(appointments));
+				}
+				// errors necessary?
+			})
+	}, [date])
 
-	function handleClickAppointment(appt) {
+	function handleClickAppointment(appointment) {
 		if (handleAlert()) {
-			const payload = {data: appt, page: "appointment-edit"};
+			const payload = {data: appointment, page: "appointment-edit"};
 			setDisplay(payload);
 		}
 	}
@@ -59,10 +49,10 @@ function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAler
 						<th style={{width: "43%"}} >Patient</th>
 						<th style={{width: "43%"}}>Doctor</th>
 					</tr>
-					{appointments.map((appt) => (
+					{appointments.map((appointment) => (
 						<AdminAppointment
-							key={appt.id}
-							appt={appt}
+							key={appointment.id}
+							appointment={appointment}
 							handleOnClick={handleClickAppointment}
 						/>
 					))}

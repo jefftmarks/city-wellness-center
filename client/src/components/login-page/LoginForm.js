@@ -32,10 +32,10 @@ function LoginForm({ onLogin }) {
 				if (res.ok) {
 					res.json().then((data) => {
 						localStorage.setItem("jwt", data.token);
-						onLogin(data.user);
+						onLogin(data);
 					});
 				} else {
-					res.json().then((data) => setErrors(data.errors));
+					// res.json().then((data) => setErrors(data.errors));
 				}
 			})
 	}
@@ -48,6 +48,7 @@ function LoginForm({ onLogin }) {
 				<div id="user-role-container">
 					<label htmlFor="user-role">I'm logging in as . . .</label>
 					<select
+						required
 						name="role"
 						id="user-role"
 						value={formData.role}

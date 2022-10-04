@@ -33,3 +33,7 @@
 	background-color: white;
 	cursor: pointer;
 }
+
+#create-appt-time-input {
+	width: 120px;
+}

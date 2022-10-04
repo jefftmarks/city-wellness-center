@@ -2,10 +2,10 @@ import React from "react";
 import LoginForm from "./LoginForm";
 import "./Login.css";
 
-function Login() {
+function Login({ onLogin }) {
 	return (
 		<div id="login-container">
-			<LoginForm />
+			<LoginForm onLogin={onLogin} />
 		</div>
 	)
 }

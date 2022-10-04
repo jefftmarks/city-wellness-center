@@ -25,7 +25,7 @@ function AdminPortal({ handleClickSignOut, user }) {
 			case "appointment-edit":
 				return (
 					<EditAppointment
-						appt={display.data}
+						appointment={display.data}
 						onEditAppointment={handleUpdateAppointments}
 						mode={mode}
 						setMode={setMode}

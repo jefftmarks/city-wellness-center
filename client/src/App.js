@@ -8,40 +8,45 @@ import "./App.css";
 import NavBar from "./components/login-page/NavBar";
 
 function App() {
-	const [user, setUser] = useState({
-		role: "doctor",
-		email: "admin@admin.org",
-		password: "12345",
-		id: 1
-	});
+	const [user, setUser] = useState(null);
+	const [role, setRole] = useState("");
 
-	// useEffect(() => {
-	// 	let token = localStorage.getItem("jwt");
+	useEffect(() => {
+		let token = localStorage.getItem("jwt");
 		
-	// 	if (token && !user) {
-	// 		fetch("/profile", {
-	// 			headers: {
-	// 				token: token,
-	// 				"Content-Type": "application/json",
-	// 			},
-	// 		})
-	// 		.then((res) => {
-	// 			if (res.ok) {
-	// 				res.json().then((user) => setUser(user));
-	// 			} else {
-	// 				res.json().then((data) => handleLogout(data))
-	// 			}
-	// 		});
-	// 	}
-	// }, []);
+		if (token && !user) {
+			fetch("/profile", {
+				headers: {
+					token: token,
+					"Content-Type": "application/json",
+				},
+			})
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((data) => {
+						setUser(data.user);
+						setRole(data.role);
+					});
+				} else {
+					res.json().then((data) => console.log(data));
+				}
+			});
+		}
+	}, []);
+
+	function handleLogin(data) {
+		setUser(data.user);
+		setRole(data.role);
+	}
 
 	function handleLogout() {
 		localStorage.clear();
-		setUser({role: ""});
+		setRole("");
+		setUser(null);
 	}
 
 	function renderSwitch() {
-		switch(user.role) {
+		switch(role) {
 			case "patient":
 				return (
 					<div className="portal-container">
@@ -64,7 +69,7 @@ function App() {
 				return (
 					<>
 						<NavBar />
-						<Login onLogin={setUser} />
+						<Login onLogin={handleLogin} />
 					</>
 				);
 		}
