@@ -27,25 +27,23 @@ function CreateRecord({ category, setMode, onEditRecord }) {
 	function handleSubmit(event) {
 		event.preventDefault();
 		setMode("");
-		onEditRecord(category);
-		setErrors([]);
-		// fetch(`/${category}`, {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify(formData),
-		// })
-		// 	.then((res) => {
-		// 		if (res.ok) {
-		// 			res.json().then((record) => {
-		// 				setMode("");
-		// 				onEditRecord(category);
-		// 			});
-		// 		} else {
-		// 			res.json().then((data) => setErrors(data.errors));
-		// 		}
-		// 	})
+		fetch(`/${category}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((record) => {
+						setMode("");
+						onEditRecord(category);
+					});
+				} else {
+					res.json().then((data) => setErrors(data.errors));
+				}
+			})
 	}
 
 	function handleDiscardChanges(event) {
