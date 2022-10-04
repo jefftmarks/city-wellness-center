@@ -1,4 +1,5 @@
 class DoctorsController < ApplicationController
+	before_action :set_doctor, only: [:update, :destroy]
 
   def index
     doctors = Doctor.all
@@ -10,32 +11,30 @@ class DoctorsController < ApplicationController
   #   render json: doctor
   # end
 
-  # def create
-  #   doctor = Doctor.create(doctor_params)
-  #   render json: doctor, status:created
-  # end
+  def create
+    doctor = Doctor.create!(doctor_params)
+    render json: doctor, status: :created
+  end
 
-  # def update
-  #   doctor = find_param
-  #   doctor.update(doctor_params)
-  #   render json: doctor, status:updated
-  # end
+  def update
+    @doctor.update!(doctor_params)
+    render json: @doctor, status: :ok
+  end
 
-  # def destroy
-  #   doctor = find_param
-  #   doctor.destroy
-  #   head :no_content
-  # end
+  def destroy
+    @doctor.destroy
+    render json: @doctor
+  end
 
 
   private
 
   def doctor_params
-    params.permit(:first_name, :last_name, :email, :phone, :bio, :certification, :image)
+    params.permit(:id, :first_name, :last_name, :email, :phone, :bio, :certification, :image, :password)
   end
 
-  def find_params
-    Doctor.find(params[:id])
+  def set_doctor
+    @doctor = Doctor.find(params[:id])
   end
 
 end

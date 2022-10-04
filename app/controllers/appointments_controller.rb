@@ -28,7 +28,7 @@ class AppointmentsController < ApplicationController
 
   def update
     @appointment.update!(appointment_params)
-    render json: @appointment, status: :accepted
+    render json: @appointment, status: :ok
   end
 
   def destroy

@@ -2,35 +2,9 @@ import React, { useState, useEffect } from "react";
 import Record from "../Record";
 import "./PatientsDoctorsTable.css";
 
-const patients = [
-	{id: 1, last_name: "Marks", first_name: "Jeff", email: "jeff@jeff.com", phone: "555-555-5555"},
-	{id: 2, last_name: "Marks", first_name: "Billy", email: "jeff@jeff.com", phone: "555-555-5555"},
-	{id: 3, last_name: "Marks", first_name: "Joe", email: "jeff@jeff.com", phone: "555-555-5555"},
-	{id: 4, last_name: "Marks", first_name: "Sarah", email: "jeff@jeff.com", phone: "555-555-5555"},
-	{id: 5, last_name: "Marks", first_name: "Emily", email: "jeff@jeff.com", phone: "555-555-5555"}
-]
-
-const doctors = [
-	{id: 1, last_name: "Yabre", first_name: "Thierry", email: "doc@doctor.com", phone: "555-555-5555"},
-	{id: 2, last_name: "Yabre", first_name: "Marcus", email: "doc@doctor.com", phone: "555-555-5555"},
-	{id: 3, last_name: "Yabre", first_name: "Hannah", email: "doc@doctor.com", phone: "555-555-5555"},
-	{id: 4, last_name: "Yabre", first_name: "Beverly", email: "doc@doctor.com", phone: "555-555-5555"},
-	{id: 5, last_name: "Yabre", first_name: "Chris", email: "doc@doctor.com", phone: "555-555-5555"}
-]
-
-function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor, category, setCategory }) {
-	const [records, setRecords] = useState(patients);
+function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor, category, setCategory, records, setRecords }) {
 
 	const categoryHeader = category[0].toUpperCase() + category.slice(1);
-
-	function handleChangeCategory(category) {
-		setCategory(category);
-		if (category === "patients") {
-			setRecords(patients);
-		} else {
-			setRecords(doctors);
-		}
-	}
 
 	useEffect(() => {
 		fetch(`/${category}`)
@@ -87,14 +61,14 @@ function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor
 			<button
 				id="show-patients-btn"
 				className={category === "patients" ? "selected" : null}
-				onClick={() => handleChangeCategory("patients")}
+				onClick={() => setCategory("patients")}
 			>
 				Patients
 			</button>
 			<button
 				id="show-doctors-btn"
 				className={category === "doctors" ? "selected" : null}
-				onClick={() => handleChangeCategory("doctors")}
+				onClick={() => setCategory("doctors")}
 			>
 				Doctors
 			</button>

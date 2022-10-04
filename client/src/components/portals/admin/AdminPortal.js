@@ -21,6 +21,7 @@ function AdminPortal({ handleClickSignOut, user }) {
 	const [apptDoctor, setApptDoctor] = useState(null);
 
 	const [appointments, setAppointments] = useState([]);
+	const [records, setRecords] = useState([]);
 
 	function renderDisplay() {
 		switch (display.page) {
@@ -50,6 +51,7 @@ function AdminPortal({ handleClickSignOut, user }) {
 						mode={mode}
 						setMode={setMode}
 						onEditRecord={handleUpdateRecords}
+						onDeleteRecord={handleDeleteRecord}
 					/>
 				);
 			case "record-new":
@@ -57,7 +59,7 @@ function AdminPortal({ handleClickSignOut, user }) {
 					<CreateRecord
 						category={display.category}
 						setMode={setMode}
-						onEditRecord={handleUpdateRecords}
+						onCreateRecord={handleCreateRecord}
 					/>
 				)
 			case "edit-profile":
@@ -73,6 +75,8 @@ function AdminPortal({ handleClickSignOut, user }) {
 		}
 	}
 
+	// Appointments CRUD
+
 	function handleCreateAppointment(appointment = null) {
 		setDisplay({page: ""})
 		setMode("");
@@ -83,17 +87,19 @@ function AdminPortal({ handleClickSignOut, user }) {
 		}
 	}
 
-	function handleUpdateAppointments(newAppt) {
+	function handleUpdateAppointments(updatedAppt = null) {
 		setDisplay({page: ""});
 		setMode("");
-		const updatedAppointments = appointments.map((appt) => {
-			if (appt.id === newAppt.id) {
-				return newAppt;
-			} else {
-				return appt;
-			}
-		})
-		setAppointments(updatedAppointments);
+		if (updatedAppt) {
+			const updatedAppointments = appointments.map((appt) => {
+				if (appt.id === updatedAppt.id) {
+					return updatedAppt;
+				} else {
+					return appt;
+				}
+			})
+			setAppointments(updatedAppointments);
+		}
 	}
 
 	function handleDeleteAppointment(delAppt) {
@@ -103,9 +109,36 @@ function AdminPortal({ handleClickSignOut, user }) {
 		setAppointments(updatedAppointments);
 	}
 
-	function handleUpdateRecords(newCategory = category) {
-		setCategory(newCategory);
+	// Records CRUD
+
+	function handleCreateRecord(record = null) {
+		setDisplay({page: ""})
+		setMode("");
+		if (record) {
+			setRecords([...records, record]);
+		}
+	}
+
+	function handleUpdateRecords(updatedRecord = null) {
 		setDisplay({page: ""});
+		setMode("");
+		if (updatedRecord) {
+			const updatedRecords = records.map((record) => {
+				if (record.id === updatedRecord.id) {
+					return updatedRecord;
+				} else {
+					return record;
+				}
+			})
+			setRecords(updatedRecords);
+		}
+	}
+
+	function handleDeleteRecord(delRecord) {
+		setDisplay({page: ""});
+		setMode("");
+		const updatedRecords = records.filter((record) => record.id !== delRecord.id);
+		setRecords(updatedRecords);
 	}
 
 	function onClickEditProfile() {
@@ -163,6 +196,8 @@ function AdminPortal({ handleClickSignOut, user }) {
 						setDoctor={setApptDoctor}
 						category={category}
 						setCategory={setCategory}
+						records={records}
+						setRecords={setRecords}
 					/>
 				</div>
 				<div id="admin-right-panel">

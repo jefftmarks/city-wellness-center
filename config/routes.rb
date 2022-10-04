@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   # resources :welcomes
   resources :appointments, only: [:create, :update, :destroy]
   resources :admins, only: [:update]
-  resources :patients, only: [:index]
-  resources :doctors, only: [:index]
+  resources :patients, only: [:index, :update, :destroy, :create]
+  resources :doctors, only: [:index, :update, :destroy, :create]
 
 	get "/appointments/date/:date", to: "appointments#by_date"
 
