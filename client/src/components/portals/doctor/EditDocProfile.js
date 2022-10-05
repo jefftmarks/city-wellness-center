@@ -9,8 +9,9 @@ function EditDocProfile({ user, setUser, setMode, setDisplay }) {
 		phone: "",
 		password: "",
 		password_confirmation: "",
-		certificatoin: "",
-		display: "",
+		certification: "",
+		bio: "",
+		image: "",
 	};
 	const [formData, setFormData] = useState(initializedForm);
 	const [errors, setErrors] = useState([]);
@@ -54,7 +55,7 @@ function EditDocProfile({ user, setUser, setMode, setDisplay }) {
 						setUser(user);
 					});
 				} else {
-					res.json().then((data) => setErrors(data));
+					res.json().then((data) => setErrors(data.errors));
 				}
 			})
 	}

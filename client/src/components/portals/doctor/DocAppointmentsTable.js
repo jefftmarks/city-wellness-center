@@ -4,7 +4,7 @@ import "./DocAppointmentsTable.css";
 
 const today = new Date().toISOString().slice(0, 10);
 
-function DocAppointmentsTable({ setDisplay, setMode, handleAlert, user }) {
+function DocAppointmentsTable({ setDisplay, handleAlert, user }) {
 	const [date, setDate] = useState(today);
 	const [appointments, setAppointments] = useState([]);
 
@@ -14,7 +14,7 @@ function DocAppointmentsTable({ setDisplay, setMode, handleAlert, user }) {
 				if (res.ok) {
 					res.json().then((appts) => setAppointments(appts));
 				}
-				// errors necessary?
+					res.json().then((errors) => console.log(errors));
 			})
 	}, [date, user])
 

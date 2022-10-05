@@ -1,17 +1,15 @@
-#create-record {
+#edit-patient {
 	padding: 18px;
-	border-radius: 15px;
-	box-shadow: 0px 1px 2px #888888;
-	background-color: white;
+	border: 1px solid black;
 	height: 100%;
 	width: 100%;
 }
 
-#create-record h2 {
+#edit-patient h2 {
 	margin: 0;
 }
 
-#create-record-form {
+#edit-patient-form {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -19,28 +17,27 @@
 	margin-top: 20px;
 }
 
-#create-record-form input {
+#edit-patient-form input {
 	margin-left: 8px;
 }
 
-#create-record-form button {
+#edit-patient-form button {
 	height: 21.33px;
 	width: 180px;
-	border: none;
-	box-shadow: 0px 1px 2px #888888;
-	border-radius: 20px;
-	background-color: #f2fce8;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
 	cursor: pointer;
 }
 
-#create-record-errors {
+#edit-patient-errors {
 	margin: 0;
 	padding-left: 0px;
 	width: 80%;
 	line-height: 25px;
 }
 
-#create-record-errors li {
+#edit-patient-errors li {
 	list-style: none;
 	color: red;
 }
