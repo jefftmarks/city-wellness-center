@@ -2,7 +2,8 @@
 	border: 1px solid black;
 	width: 90%;
 	height: 340px;
-	padding: 18px
+	padding: 18px;
+	overflow-y: scroll;
 }
 
 #patients-drs-table-header {

@@ -25,13 +25,6 @@ function DocAppointmentsTable({ setDisplay, setMode, handleAlert, user }) {
 		}
 	}
 
-	// function onClickCreateAppointment() {
-	// 	if (handleAlert()) {
-	// 		setDisplay({page: "appointment-new"});
-	// 		setMode("create-appointment");
-	// 	}
-	// }
-
 	return (
 		<div id="dr-appts-table-container">
 			<h2>Appointments</h2>

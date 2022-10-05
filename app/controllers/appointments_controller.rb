@@ -3,7 +3,7 @@ class AppointmentsController < ApplicationController
 
 	def by_date
 		date = params[:date]
-		appointments = Appointment.where(date: date)
+		appointments = Appointment.where(date: date).order(:time)
 		if appointments
 			render json: appointments, status: :ok
 		else
@@ -14,7 +14,7 @@ class AppointmentsController < ApplicationController
 	def by_doctor
 		date = params[:date]
 		doctor_id = params[:doctor_id]
-		appointments = Appointment.where(date: date, doctor_id: doctor_id)
+		appointments = Appointment.where(date: date, doctor_id: doctor_id).order(:time)
 		if appointments
 			render json: appointments, status: :ok
 		else
@@ -24,7 +24,18 @@ class AppointmentsController < ApplicationController
 
 	def by_patient
 		patient_id = params[:patient_id]
-		appointments = Appointment.where(patient_id: patient_id)
+		appointments = Appointment.where(patient_id: patient_id).order(:time)
+		if appointments
+			render json: appointments, status: :ok
+		else
+			render json: { error: "Appointments not found" }, status: :not_found
+		end
+	end
+
+	def upcoming
+		today = Date.today.to_time.iso8601.slice(0, 10)
+		patient_id = params[:patient_id]
+		appointments = Appointment.where(["date >= ? and patient_id = ?", today, patient_id]).order(:time)
 		if appointments
 			render json: appointments, status: :ok
 		else

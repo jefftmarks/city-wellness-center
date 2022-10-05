@@ -1,0 +1,31 @@
+#patient-portal-container {
+	position: relative;
+	top: 20px;
+	width: 100%;
+	height: 60%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#patient-portal-header {
+	width: 100%;
+	height: 70px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-left: 22px;
+}
+
+#patient-portal-header h3 {
+	margin: 0 0 3px 0;
+}
+
+#patient-portal-header button {
+	height: 21.33px;
+	width: 80px;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
+	margin-left: 20px;
+}
