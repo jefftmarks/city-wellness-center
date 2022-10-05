@@ -10,6 +10,16 @@ class PatientsController < ApplicationController
     render json: @patient, status: :ok
   end
 
+	def login
+		user = Patient.find_by(email: params[:email])
+		if user&.authenticate(params[:password])
+			token = generate_token({user_id: user.id, role: "patient"})
+			render json: { user: user, token: token, role: "patient" }, status: :created
+		else
+			render json: { error: ["Invalid username or password"] }, status: :unauthorized
+		end
+	end
+
 	def by_doctor
 		doctor = Doctor.find(params[:doctor_id])
 		patients = doctor.patients

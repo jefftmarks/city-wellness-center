@@ -7,6 +7,8 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 	const [appointments, setAppointments] = useState([]);
 	const [selectedAppointment, setSelectedAppointment] = useState({});
 
+	// ~~~~~~~ Date * Time Formatting ~~~~~~~
+
 	let formattedDate;
 	let formattedTime;
 
@@ -37,8 +39,16 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 		}
 	}
 
+	// ~~~~~~~ Load Patient & Patient's Appointments ~~~~~~~
+
 	useEffect(() => {
-		let id = record.type === "appt" ? record.patient.id : record.id; 
+		let id
+		if (record.type === "appt") {
+			id = record.patient.id;
+			setSelectedAppointment(record);
+		} else {
+			id = record.id
+		}
 		fetch(`/patients/${id}`)
 			.then((res) => {
 				if (res.ok) {
@@ -46,7 +56,6 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 						setPatient(patient);
 					});
 				} else {
-					// error handling?
 					res.json().then((errors) => console.log(errors));
 				}
 			})
@@ -60,20 +69,21 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 						setAppointments(appointments);
 					});
 				} else {
-					// error handling?
 					res.json().then((errors) => console.log(errors));
 				}
 			})
 	}, [patient]);
 
-	function handleChangePatient(event) {
+	// ~~~~~~~ Edit Status & Notes ~~~~~~~
+
+	function handleChangeStatus(event) {
 		setPatient({
 			...patient,
 			status: event.target.value
 		})
 	}
 
-	function handleChangeAppointment(event) {
+	function handleChangeNotes(event) {
 		setSelectedAppointment({
 			...selectedAppointment,
 			notes: event.target.value
@@ -130,6 +140,8 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 			})
 	}
 
+	// ~~~~~~~ Alert Handling ~~~~~~~
+
 	function handleClickAppointment(appointment) {
 		if (handleAlert()) {
 			setSelectedAppointment(appointment);
@@ -150,8 +162,10 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 
 	function onClickBack(event){
 		event.preventDefault();
-		setMode("");
-		setDisplay("");
+		if (handleAlert()) {
+			setMode("");
+			setDisplay("");
+		}
 	}
 
 	if (patient) return (
@@ -170,7 +184,7 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 			{mode === "edit-status" ? (
 				<textarea
 					id="edit-status-field"
-					onChange={handleChangePatient}
+					onChange={handleChangeStatus}
 					value={patient.status}
 				>
 				</textarea>
@@ -192,7 +206,7 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 					{mode === "edit-notes" ? (
 						<textarea
 						id="edit-notes-field"
-						onChange={handleChangeAppointment}
+						onChange={handleChangeNotes}
 						value={selectedAppointment.notes}
 						>
 						</textarea>

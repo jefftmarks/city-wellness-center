@@ -1,10 +1,18 @@
 import React from "react";
-// import "./PatientPortal.css";
+import PatientAppointmentsTable from "./PatientAppointmentsTable";
+import "./PatientPortal.css";
 
-function PatientPortal() {
+function PatientPortal({ user, handleClickSignOut }) {
+
 	return (
-		<div className="patient-portal">
-			Patient Portal
+		<div id="patient-portal">
+			<div id="patient-portal-header">
+				<h3>{user.first_name} {user.last_name} (Patient)</h3>
+				<button onClick={handleClickSignOut}>Sign Out</button>
+			</div>
+			<div id="patient-portal-container">
+				<PatientAppointmentsTable user={user} />
+			</div>
 		</div>
 	)
 }

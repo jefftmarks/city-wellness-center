@@ -56,7 +56,10 @@ function App() {
 			case "patient":
 				return (
 					<div className="portal-container">
-						<PatientPortal />
+						<PatientPortal
+							user={user}
+							handleClickSignOut={handleLogout}
+						/>
 					</div>
 				);
 			case "doctor":

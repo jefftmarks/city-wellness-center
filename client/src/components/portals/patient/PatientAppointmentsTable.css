@@ -1,0 +1,40 @@
+#patient-appts-table-container {
+	border: 1px solid black;
+	width: 800px;
+	height: 340px;
+	padding: 18px
+}
+
+#patient-appts-table-container h2 {
+	margin: 0 0 18px 0;
+}
+
+#patient-appts-table {
+	margin-top: 18px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#patient-appts-table th {
+  text-align: left;
+	padding: 8px;
+	background-color: white;
+}
+
+#patient-appts-table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#patient-appts-table tr:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+#patient-appts-table-container button {
+	height: 21.33px;
+	width: 180px;
+	border: 1px solid black;
+	border-radius: 0;
+	background-color: white;
+	cursor: pointer;
+}

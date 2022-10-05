@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 	get "/appointments/date/:date", to: "appointments#by_date"
 	get "/appointments/doctor/:doctor_id/date/:date", to: "appointments#by_doctor"
 	get "/appointments/patient/:patient_id", to: "appointments#by_patient"
+	get "/appointments/upcoming/:patient_id", to: "appointments#upcoming"
 
 	get "/patients/doctor/:doctor_id", to: "patients#by_doctor"
 

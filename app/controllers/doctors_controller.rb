@@ -16,11 +16,6 @@ class DoctorsController < ApplicationController
 		end
 	end
 
-  # def show
-  #   doctor = find_params
-  #   render json: doctor
-  # end
-
   def create
     doctor = Doctor.create!(doctor_params)
     render json: doctor, status: :created
