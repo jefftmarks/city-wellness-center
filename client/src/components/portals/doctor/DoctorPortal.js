@@ -75,15 +75,12 @@ function DoctorPortal({ user, setUser, handleClickSignOut }) {
 						user={user}
 						handleAlert={handleAlert}
 						setDisplay={setDisplay}
-							// setMode={setMode}
 						/>
 					<div className="dr-portal-div"></div>
 					<PatientsTable
 						user={user}
 						handleAlert={handleAlert}
 						setDisplay={setDisplay}
-						// mode={mode}
-						// setMode={setMode}
 					/>
 				</div>
 				<div id="dr-right-panel">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Record from "../Record";
 import "./PatientsTable.css";
 
-function PatientsTable({ setDisplay, mode, setMode, user, handleAlert }) {
+function PatientsTable({ setDisplay, user, handleAlert }) {
 	const [records, setRecords] = useState([]);
 
 	useEffect(() => {
@@ -11,7 +11,7 @@ function PatientsTable({ setDisplay, mode, setMode, user, handleAlert }) {
 			if (res.ok) {
 				res.json().then((records) => setRecords(records));
 			}
-			// errors necessary?
+				res.json().then((errors) => console.log(errors));
 		})
 	}, [user]);
 
@@ -21,30 +21,6 @@ function PatientsTable({ setDisplay, mode, setMode, user, handleAlert }) {
 			setDisplay(payload);
 		}
 	}
-
-	// function handleClickRecord(record) {
-	// 	if (!handleAlert()) return; 
-	// 	if (mode === "create-appointment") {
-	// 		category === "patients" ? setPatient(record) : setDoctor(record)
-	// 	} else {
-	// 		const payload = {
-	// 			data: {...record, category: category},
-	// 			page: "record-edit"
-	// 		};
-	// 		setDisplay(payload);
-	// 	}
-	// }
-
-	// function onClickCreateRecord() {
-	// 	if (mode === "create-appointment") {
-	// 		alert("Please submit or discard the new appointment before proceeding.");
-	// 		return;
-	// 	}
-	// 	if (handleAlert()) {
-	// 		setDisplay({page: "record-new", category: category});
-	// 		setMode("create-record");
-	// 	}
-	// }
 
 	return (
 		<div id="patients-table-container">

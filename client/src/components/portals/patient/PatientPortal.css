@@ -1,12 +1,10 @@
 #patient-portal-container {
-	position: relative;
-	top: 20px;
 	width: 100%;
-	height: 60%;
+	height: 100%;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-wrap: wrap;
 }
+
 #patient-portal-header {
 	width: 100%;
 	height: 70px;
@@ -28,4 +26,28 @@
 	background-color: white;
 	cursor: pointer;
 	margin-left: 20px;
+}
+
+#patient-left-panel, #patient-right-panel {
+	min-width: 500px;
+	height: 100%;
+	flex-grow: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#patient-left-panel {
+	width: 60%;
+}
+
+#patient-right-panel {
+	width: 40%;
+}
+
+#patient-display-container {
+	height: 710px;
+	width: 90%;
 }

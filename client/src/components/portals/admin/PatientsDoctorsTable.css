@@ -1,9 +1,11 @@
 #patients-drs-table-container {
-	border: 1px solid black;
+	border-radius: 15px;
+	box-shadow: 0px 1px 2px #888888;
 	width: 90%;
 	height: 340px;
 	padding: 18px;
 	overflow-y: scroll;
+	background-color: white;
 }
 
 #patients-drs-table-header {
@@ -43,14 +45,16 @@
 
 #patients-drs-table-container button {
 	height: 21.33px;
-	border-radius: 0;
-	background-color: white;
+	/* background-color: white; */
 	cursor: pointer;
 }
 
 #create-record-btn {
 	width: 180px;
-	border: 1px solid black;
+	border: none;
+	box-shadow: 0px 1px 2px #888888;
+	border-radius: 20px;
+	background-color: #f2fce8;
 }
 
 #patients-drs-table-container .selected {
@@ -59,13 +63,16 @@
 
 #show-doctors-btn {
 	width: 90px;
-	border: 1px solid black;
+	border: none;
+	background-color: #f2fce8;
+	border-radius: 0 20px 20px 0;
+	box-shadow: 0px 1px 2px #888888;
 }
 
 #show-patients-btn {
 	width: 90px;
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-	border-left: 1px solid black;
-	border-right: none;
+	border: none;
+	background-color: #f2fce8;
+	border-radius: 20px 0 0 20px;
+	box-shadow: 0px 1px 2px #888888;
 }

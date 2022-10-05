@@ -58,6 +58,7 @@ function App() {
 					<div className="portal-container">
 						<PatientPortal
 							user={user}
+							setUser={setUser}
 							handleClickSignOut={handleLogout}
 						/>
 					</div>

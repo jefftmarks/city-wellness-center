@@ -2,11 +2,8 @@ class AdminsController < ApplicationController
   before_action :set_admin, only: [:update]
 
   def update
-    if @admin.update(admin_params)
-      render json: @admin, status: :ok
-    else
-      render json: admin.errors, status: :unprocessable_entity
-    end
+    @admin.update!(admin_params)
+    render json: @admin, status: :ok
   end
 
 	def login
