@@ -10,7 +10,6 @@ function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAler
 				if (res.ok) {
 					res.json().then((appointments) => setAppointments(appointments));
 				}
-				// errors necessary?
 			})
 	}, [date])
 

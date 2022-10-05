@@ -38,9 +38,14 @@ function EditRecord({ record, mode, setMode, onEditRecord, onDeleteRecord }) {
 		})
 			.then((res) => {
 				if (res.ok) {
-					res.json().then((record) => onEditRecord(record));
+					res.json().then((data) => {
+						const payload = {
+							...data,
+							category: record.category
+						};
+						onEditRecord(payload);
+					});
 				} else {
-					// figure out error handling
 					res.json().then((errors) => console.log(errors));
 				}
 			})

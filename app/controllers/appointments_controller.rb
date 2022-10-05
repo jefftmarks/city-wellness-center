@@ -24,7 +24,7 @@ class AppointmentsController < ApplicationController
 
 	def by_patient
 		patient_id = params[:patient_id]
-		appointments = Appointment.where(patient_id: patient_id).order(:time)
+		appointments = Appointment.where(patient_id: patient_id).order(:time, :date)
 		if appointments
 			render json: appointments, status: :ok
 		else

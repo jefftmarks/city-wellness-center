@@ -10,8 +10,9 @@ function PatientsTable({ setDisplay, user, handleAlert }) {
 		.then((res) => {
 			if (res.ok) {
 				res.json().then((records) => setRecords(records));
-			}
+			} else {
 				res.json().then((errors) => console.log(errors));
+			}			
 		})
 	}, [user]);
 
