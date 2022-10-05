@@ -2,21 +2,18 @@ import React, { useState, useEffect } from "react";
 import Record from "../Record";
 import "./PatientsTable.css";
 
-const dummyPatients = [
-	{id: 1, last_name: "Marks", first_name: "Jeff", email: "jeff@jeff.com", phone: "555-555-5555"},
-	{id: 2, last_name: "Marks", first_name: "Bob", email: "bob@bob.com", phone: "555-555-5555"}
-]
-
 function PatientsTable({ setDisplay, mode, setMode, user, handleAlert }) {
-	const [records, setRecords] = useState(dummyPatients);
+	const [records, setRecords] = useState([]);
 
-	// useEffect(() => {
-	// 	fetch(`/patients/doctor/${user.id}`)
-	// 		.then((res) => res.json())
-	// 		.then((records) => setRecords(records))
-	// 		// do we need error handling?
-	// 		.catch((err) => console.error(err));
-	// }, [user]);
+	useEffect(() => {
+		fetch(`/patients/doctor/${user.id}`)
+		.then((res) => {
+			if (res.ok) {
+				res.json().then((records) => setRecords(records));
+			}
+			// errors necessary?
+		})
+	}, [user]);
 
 	function handleClickPatient(patient) {
 		if (handleAlert()) {
@@ -55,11 +52,10 @@ function PatientsTable({ setDisplay, mode, setMode, user, handleAlert }) {
 		<table id="patients-table">
 			<tbody>
 				<tr>
-					<th style={{width: "2%"}} >ID</th>
 					<th style={{width: "20%"}}>Last Name</th>
 					<th style={{width: "20%"}} >First Name</th>
 					<th style={{width: "17%"}} >Phone</th>
-					<th style={{width: "41%"}}>Email</th>
+					<th style={{width: "43%"}}>Email</th>
 				</tr>
 				{records.map((record) => (
 					<Record

@@ -3,6 +3,8 @@ import "./EditDocProfile.css";
 
 function EditDocProfile({ user, setUser, setMode, setDisplay }) {
 	const initializedForm = {
+		first_name: "",
+		last_name: "",
 		email: "",
 		phone: "",
 		password: "",
@@ -20,6 +22,8 @@ function EditDocProfile({ user, setUser, setMode, setDisplay }) {
 	useEffect(() => {
 		setFormData({
 			...formData,
+			first_name: user.first_name,
+			last_name: user.last_name,
 			email: user.email,
 			phone: user.phone,
 			certification: user.certification,
@@ -65,6 +69,26 @@ function EditDocProfile({ user, setUser, setMode, setDisplay }) {
 		<div id="edit-doctor">
 			<h2>Update Profile </h2>
 			<form id="edit-doctor-form" onSubmit={handleSubmit}>
+				<label>First Name:
+					<input
+					required
+					className="edit-doctor-input"
+					type="text"
+					name="first_name"
+					onChange={handleChange}
+					value={formData.first_name}
+					/>
+				</label>
+				<label>Last Name:
+					<input
+					required
+					className="edit-doctor-input"
+					type="text"
+					name="last_name"
+					onChange={handleChange}
+					value={formData.last_name}
+					/>
+				</label>
 				<label>Email:
 					<input
 					required

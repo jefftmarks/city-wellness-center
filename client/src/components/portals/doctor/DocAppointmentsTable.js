@@ -4,27 +4,19 @@ import "./DocAppointmentsTable.css";
 
 const today = new Date().toISOString().slice(0, 10);
 
-const dummyData = [
-	{id: 1, time: "09:00", date: today, patient_id: 2, patient: "Bob Marks", notes: "Discussed coping mechanisms."},
-	{id: 2, time: "10:00", date: today, patient_id: 1, patient: "Jeff Marks", notes: "Talked about father."},
-	{id: 3, time: "10:30", date: today, patient_id: 2, patient: "Bob Marks", notes: "Taught meditation techniques."},
-	{id: 4, time: "10:30", date: today, patient_id: 1, patient: "Jeff Marks", notes: "Talked about siblings."},
-	{id: 5, time: "11:00", date: today, patient_id: 1, patient: "Jeff Marks", notes: "Talked about mother."}
-]
-
 function DocAppointmentsTable({ setDisplay, setMode, handleAlert, user }) {
 	const [date, setDate] = useState(today);
-	const [appointments, setAppointments] = useState(dummyData);
+	const [appointments, setAppointments] = useState([]);
 
-	// useEffect(() => {
-	// 	fetch(`/appointments/doctor/${user.id}/date/${date}`)
-	// 		.then((res) => {
-	// 			if (res.ok) {
-	// 				res.json().then((appts) => setAppointments(appts));
-	// 			}
-	// 			// errors necessary?
-	// 		})
-	// }, [date, user])
+	useEffect(() => {
+		fetch(`/appointments/doctor/${user.id}/date/${date}`)
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((appts) => setAppointments(appts));
+				}
+				// errors necessary?
+			})
+	}, [date, user])
 
 	function handleClickAppointment(appointment) {
 		if (handleAlert()) {

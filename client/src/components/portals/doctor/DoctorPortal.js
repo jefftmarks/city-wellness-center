@@ -8,7 +8,7 @@ import "./DoctorPortal.css";
 function DoctorPortal({ user, setUser, handleClickSignOut }) {
 	const [display, setDisplay] = useState({page: ""});
 	const [mode, setMode] = useState("");
-	const [appointment, setAppointment] = useState({});
+	
 
 	function renderDisplay() {
 		switch (display.page) {
@@ -18,8 +18,6 @@ function DoctorPortal({ user, setUser, handleClickSignOut }) {
 						record={display.data}
 						mode={mode}
 						setMode={setMode}
-						appointment={appointment}
-						setAppointment={setAppointment}
 						handleAlert={handleAlert}
 						setDisplay={setDisplay}
 					/>

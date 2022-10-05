@@ -39,6 +39,7 @@ function PatientAppointment({ appointment, handleOnClick, selected }) {
 		>
 			<td>{formattedDate}</td>
 			<td>{formattedTime}</td>
+			<td>{appointment.doctor.first_name} {appointment.doctor.last_name}</td>
 		</tr>
 	)
 }

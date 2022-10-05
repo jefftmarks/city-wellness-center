@@ -10,8 +10,9 @@ function PatientHistory({ appointments, handleClickAppointment, selected}) {
 		<table id="history-table">
 			<tbody>
 				<tr>
-					<th style={{width: "50%"}}>Date</th>
-					<th style={{width: "50%"}} >Time</th>
+					<th style={{width: "20%"}}>Date</th>
+					<th style={{width: "20%"}} >Time</th>
+					<th style={{width: "60%"}}>Doctor</th>
 				</tr>
 				{appointments.map((appointment) => (
 					<PatientAppointment
