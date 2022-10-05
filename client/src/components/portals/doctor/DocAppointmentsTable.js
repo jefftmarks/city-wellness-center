@@ -13,8 +13,9 @@ function DocAppointmentsTable({ setDisplay, handleAlert, user }) {
 			.then((res) => {
 				if (res.ok) {
 					res.json().then((appts) => setAppointments(appts));
-				}
+				} else {
 					res.json().then((errors) => console.log(errors));
+				}
 			})
 	}, [date, user])
 

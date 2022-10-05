@@ -98,7 +98,7 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 		setMode("");
 		setApptDoctor(null);
 		setApptPatient(null);
-		if (appointment) {
+		if (appointment && appointment.date === date) {
 			setAppointments([...appointments, appointment]);
 		}
 	}
@@ -138,7 +138,8 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 	function handleUpdateRecords(updatedRecord = null) {
 		setDisplay({page: ""});
 		setMode("");
-		if (updatedRecord) {
+		if (updatedRecord && updatedRecord.category === category) {
+			// map through and update records if current display category matches record display
 			const updatedRecords = records.map((record) => {
 				if (record.id === updatedRecord.id) {
 					return updatedRecord;
@@ -147,6 +148,25 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 				}
 			})
 			setRecords(updatedRecords);
+			// map through appointments and update any record on display that matches id of updated record
+			if (updatedRecord) {
+				const updatedAppointments = appointments.map((appt) => {
+					if (updatedRecord.category === "doctors" && updatedRecord.id === appt.doctor.id) {
+						return {
+							...appt,
+							doctor: updatedRecord
+						};
+					} else if (updatedRecord.category === "patients" && updatedRecord.id === appt.patient.id) {
+						return {
+							...appt,
+							patient: updatedRecord
+						};
+					} else {
+						return appt;
+					}
+				});
+				setAppointments(updatedAppointments);
+			}
 		}
 	}
 
@@ -155,6 +175,21 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 		setMode("");
 		const updatedRecords = records.filter((record) => record.id !== delRecord.id);
 		setRecords(updatedRecords);
+		// map through appointments and update any record on display that matches id of updated record
+		if (delRecord) {
+			let updatedAppointments;
+			if (delRecord.category === "doctors") {
+				updatedAppointments = appointments.filter((appt) => {
+					return appt.doctor.id !== delRecord.id;
+				})
+			}
+			if (delRecord.category === "patients") {
+				updatedAppointments = appointments.filter((appt) => {
+					return appt.patient.id !== delRecord.id;
+				})
+			}
+			setAppointments(updatedAppointments);
+		}
 	}
 
 	// ~~~~~~~ Alert System ~~~~~~~
