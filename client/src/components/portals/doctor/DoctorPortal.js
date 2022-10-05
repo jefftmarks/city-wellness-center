@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import DocAppointmentsTable from "./DocAppointmentsTable";
 import PatientsTable from "./PatientsTable";
 import PatientDisplay from "./PatientDisplay";
+import EditDocProfile from "./EditDocProfile";
 import "./DoctorPortal.css";
 
-function DoctorPortal({ user }) {
+function DoctorPortal({ user, setUser, handleClickSignOut }) {
 	const [display, setDisplay] = useState({page: ""});
 	const [mode, setMode] = useState("");
 	const [appointment, setAppointment] = useState({});
@@ -20,36 +21,42 @@ function DoctorPortal({ user }) {
 						appointment={appointment}
 						setAppointment={setAppointment}
 						handleAlert={handleAlert}
+						setDisplay={setDisplay}
 					/>
 				);
-			// case "edit-profile":
-			// 	return (
-			// 		<EditAdminProfile
-			// 			user={display.user}
-			// 			setMode={setMode}
-			// 			setDisplay={setDisplay}
-			// 		/>
-			// 	)
+			case "edit-profile":
+				return (
+					<EditDocProfile
+						user={display.user}
+						setUser={setUser}
+						setMode={setMode}
+						setDisplay={setDisplay}
+					/>
+				)
 			default:
 				return null;
 		}
 	}
 
-	// function onClickEditProfile() {
-	// 	if (handleAlert()) {
-	// 		setMode("edit");
-	// 		setDisplay({page: "edit-profile", user: user});
-	// 	}
-	// }
+	// ~~~~~~~ Logout & Edit Profile ~~~~~~~
 
-	// function onClickSignOut() {
-	// 	if (handleAlert()) {
-	// 		handleClickSignOut();
-	// 	}
-	// }
+	function onClickEditProfile() {
+		if (handleAlert()) {
+			setMode("edit-profile");
+			setDisplay({page: "edit-profile", user: user});
+		}
+	}
+
+	function onClickSignOut() {
+		if (handleAlert()) {
+			handleClickSignOut();
+		}
+	}
+
+	// ~~~~~~~ Alert System ~~~~~~~
 
 	function handleAlert() {
-		if (mode === "edit-status" || mode === "edit-notes") {
+		if (mode === "edit-profile" || mode === "edit-status" || mode === "edit-notes") {
 			alert("You've made changes to the record. Please submit your changes before proceeding.");
 			return false;
 		} else {
@@ -60,8 +67,9 @@ function DoctorPortal({ user }) {
 	return (
 		<div id="dr-portal">
 			<div id="dr-portal-header">
-				{/* <button onClick={onClickEditProfile}>Edit Profile</button>
-				<button onClick={onClickSignOut}>Sign Out</button> */}
+				<h3>{user.first_name} {user.last_name} (Doctor)</h3>
+				<button onClick={onClickEditProfile}>Edit Profile</button>
+				<button onClick={onClickSignOut}>Sign Out</button>
 			</div>
 			<div id="dr-portal-container">
 				<div id="dr-left-panel">

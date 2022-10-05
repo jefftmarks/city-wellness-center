@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 	get "/appointments/date/:date", to: "appointments#by_date"
 
 	post "/login/admin", to: "admins#login"
+	post "/login/doctor", to: "doctors#login"
+	post "/login/patient", to: "patients#login"
+	
 	get "/profile", to: "sessions#profile"
 
 

@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./EditAdminProfile.css";
+import "./EditDocProfile.css";
 
-function EditAdminProfile({ user, setUser, setMode, setDisplay }) {
-	const initializedForm = {email: "", password: "", password_confirmation: ""};
+function EditDocProfile({ user, setUser, setMode, setDisplay }) {
+	const initializedForm = {
+		email: "",
+		phone: "",
+		password: "",
+		password_confirmation: "",
+		certificatoin: "",
+		display: "",
+	};
 	const [formData, setFormData] = useState(initializedForm);
 	const [errors, setErrors] = useState([]);
 
@@ -11,7 +18,14 @@ function EditAdminProfile({ user, setUser, setMode, setDisplay }) {
 	));
 
 	useEffect(() => {
-		setFormData({...formData, email: user.email});
+		setFormData({
+			...formData,
+			email: user.email,
+			phone: user.phone,
+			certification: user.certification,
+			bio: user.bio,
+			image: user.image
+		});
 	}, [user]);
 
 	function handleChange(event) {
@@ -19,11 +33,9 @@ function EditAdminProfile({ user, setUser, setMode, setDisplay }) {
 		setFormData({...formData, [name]: value});
 	}
 
-	console.log(user.id)
-
 	function handleSubmit(event) {
 		event.preventDefault();
-		fetch(`/admins/${user.id}`, {
+		fetch(`/doctors/${user.id}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
@@ -33,9 +45,9 @@ function EditAdminProfile({ user, setUser, setMode, setDisplay }) {
 			.then((res) => {
 				if (res.ok) {
 					res.json().then((user) => {
-						setUser(user);
 						setMode("");
 						setDisplay("");
+						setUser(user);
 					});
 				} else {
 					res.json().then((data) => setErrors(data));
@@ -50,30 +62,72 @@ function EditAdminProfile({ user, setUser, setMode, setDisplay }) {
 	}
 
 	return (
-		<div id="edit-admin">
+		<div id="edit-doctor">
 			<h2>Update Profile </h2>
-			<form id="edit-admin-form" onSubmit={handleSubmit}>
+			<form id="edit-doctor-form" onSubmit={handleSubmit}>
 				<label>Email:
 					<input
 					required
+					className="edit-doctor-input"
 					type="email"
 					name="email"
 					onChange={handleChange}
 					value={formData.email}
 					/>
 				</label>
+				<label>Phone:
+					<input
+					required
+					className="edit-doctor-input"
+					type="phone"
+					name="phone"
+					onChange={handleChange}
+					value={formData.phone}
+					/>
+				</label>
+				<div>
+					<label>Certification:</label>
+					<textarea
+						className="edit-doctor-textarea"
+						name="certification"
+						onChange={handleChange}
+						value={formData.certification}
+					>
+					</textarea>
+				</div>
+				<div>
+					<label>Bio:</label>
+					<textarea
+						className="edit-doctor-textarea"
+						name="bio"
+						onChange={handleChange}
+						value={formData.bio}
+					>
+					</textarea>
+				</div>
+				<label>Image:
+					<input
+					className="edit-doc-image"
+					type="text"
+					name="image"
+					onChange={handleChange}
+					value={formData.image}
+					/>
+				</label>
 				<label>Current / New Password:
 					<input
 					required
+					className="edit-doctor-input"
 					type="password"
 					name="password"
 					onChange={handleChange}
 					value={formData.password}
 					/>
 				</label>
-				<label>Confirm New Password:
+				<label>Confirm Password:
 					<input
 					required
+					className="edit-doctor-input"
 					type="password"
 					name="password_confirmation"
 					onChange={handleChange}
@@ -85,11 +139,11 @@ function EditAdminProfile({ user, setUser, setMode, setDisplay }) {
 			</form>
 			{errors.length > 0 ? (
 					<>
-						<ul id="edit-admin-errors">{errorList}</ul>
+						<ul id="edit-doctor-errors">{errorList}</ul>
 					</>
 				) : null}
 		</div>
 	);
 }
 
-export default EditAdminProfile;
+export default EditDocProfile;
