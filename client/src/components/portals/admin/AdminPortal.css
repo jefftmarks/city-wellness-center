@@ -11,7 +11,13 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	margin-left: 22px;
 }
+
+#admin-portal-header h3 {
+	margin: 0 0 3px 0;
+}
+
 
 #admin-portal-header button {
 	height: 21.33px;

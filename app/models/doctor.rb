@@ -10,6 +10,6 @@ class Doctor < ApplicationRecord
 		validates :last_name, presence: true
 		validates :phone, presence: true
 		validates :password, presence: true, on: :create
-    validates :email , presence: true, uniqueness:{case_sensetive:false}
+    validates :email, presence: true, uniqueness: { case_sensetive:false }
 		# validates :email , presence: true, uniqueness:{case_sensetive:false}, format: { with: VALID_EMAIL_REGEX, multiline: true }
 end

@@ -10,7 +10,7 @@ import "./AdminPortal.css";
 
 const today = new Date().toISOString().slice(0, 10);
 
-function AdminPortal({ handleClickSignOut, user }) {
+function AdminPortal({ handleClickSignOut, user, setUser }) {
 	const [display, setDisplay] = useState({page: ""});
 	const [mode, setMode] = useState("");
 
@@ -66,6 +66,7 @@ function AdminPortal({ handleClickSignOut, user }) {
 				return (
 					<EditAdminProfile
 						user={display.user}
+						setUser={setUser}
 						setMode={setMode}
 						setDisplay={setDisplay}
 					/>
@@ -75,7 +76,22 @@ function AdminPortal({ handleClickSignOut, user }) {
 		}
 	}
 
-	// Appointments CRUD
+	// ~~~~~~~ Logout & Edit Profile ~~~~~~~
+
+	function onClickEditProfile() {
+		if (handleAlert()) {
+			setMode("edit");
+			setDisplay({page: "edit-profile", user: user});
+		}
+	}
+
+	function onClickSignOut() {
+		if (handleAlert()) {
+			handleClickSignOut();
+		}
+	}
+
+	// ~~~~~~~ Appointments CRUD ~~~~~~~
 
 	function handleCreateAppointment(appointment = null) {
 		setDisplay({page: ""})
@@ -109,7 +125,7 @@ function AdminPortal({ handleClickSignOut, user }) {
 		setAppointments(updatedAppointments);
 	}
 
-	// Records CRUD
+	// ~~~~~~~ Records (Patients & Doctors) CRUD ~~~~~~~
 
 	function handleCreateRecord(record = null) {
 		setDisplay({page: ""})
@@ -141,18 +157,7 @@ function AdminPortal({ handleClickSignOut, user }) {
 		setRecords(updatedRecords);
 	}
 
-	function onClickEditProfile() {
-		if (handleAlert()) {
-			setMode("edit");
-			setDisplay({page: "edit-profile", user: user});
-		}
-	}
-
-	function onClickSignOut() {
-		if (handleAlert()) {
-			handleClickSignOut();
-		}
-	}
+	// ~~~~~~~ Alert System ~~~~~~~
 
 	function handleAlert() {
 		switch (mode) {
@@ -173,6 +178,7 @@ function AdminPortal({ handleClickSignOut, user }) {
 	return (
 		<div id="admin-portal">
 			<div id="admin-portal-header">
+				<h3>{user.first_name} {user.last_name} (Admin)</h3>
 				<button onClick={onClickEditProfile}>Edit Profile</button>
 				<button onClick={onClickSignOut}>Sign Out</button>
 			</div>

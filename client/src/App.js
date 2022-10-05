@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
-import Login from "./components/login-page/Login";
+import Welcome from "./components/welcome/Welcome";
+import Login from "./components/welcome/Login";
+import About from "./components/welcome/About";
 import PatientPortal from "./components/portals/patient/PatientPortal";
 import DoctorPortal from "./components/portals/doctor/DoctorPortal";
 import AdminPortal from "./components/portals/admin/AdminPortal";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
-import NavBar from "./components/login-page/NavBar";
+import NavBar from "./components/welcome/NavBar";
 
 function App() {
 	const [user, setUser] = useState(null);
 	const [role, setRole] = useState("");
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		let token = localStorage.getItem("jwt");
 		
 		if (token && !user) {
+			setRole("loading");
 			fetch("/profile", {
 				headers: {
 					token: token,
@@ -32,11 +37,12 @@ function App() {
 				}
 			});
 		}
-	}, []);
+	}, [user]);
 
 	function handleLogin(data) {
 		setUser(data.user);
 		setRole(data.role);
+		navigate("/");
 	}
 
 	function handleLogout() {
@@ -56,29 +62,55 @@ function App() {
 			case "doctor":
 				return (
 					<div className="portal-container">
-						<DoctorPortal user={user} />
+						<DoctorPortal
+							handleClickSignOut={handleLogout}
+							user={user}
+							setUser={setUser}
+						/>
 					</div>
 				);
 			case "admin":
 				return (
 					<div className="portal-container">
-						<AdminPortal handleClickSignOut={handleLogout} user={user} />
+						<AdminPortal
+							handleClickSignOut={handleLogout}
+							user={user}
+							setUser={setUser}
+						/>
 					</div>
 				);
+			case "loading":
+				return <h2>Loading...</h2>
 			default:
 				return (
-					<>
-						<NavBar />
-						<Login onLogin={handleLogin} />
-					</>
+					<Welcome />
 				);
+		}
+	}
+
+	function renderNavBar() {
+		if (role === "") {
+			return <NavBar/>
+		}
+	}
+
+	function renderLoginAndAbout() {
+		if (role === "") {
+			return (
+				<>
+					<Route path="/login" element={<Login onLogin={handleLogin} />} />
+					<Route path="/about" element={<About/>} />
+				</>
+			)
 		}
 	}
 
   return (
     <div className="App">
+			{renderNavBar()}
 			<Routes>
-				<Route path="/" element={renderSwitch()} />
+				{renderLoginAndAbout()}
+				<Route exact path="/" element={renderSwitch()} />
 			</Routes>
     </div>
   );

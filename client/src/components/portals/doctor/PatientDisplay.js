@@ -16,7 +16,7 @@ const patients = [
 	]}
 ]
 
-function PatientDisplay({ record, mode, setMode, appointment, setAppointment, handleAlert }) {
+function PatientDisplay({ record, mode, setMode, appointment, setAppointment, handleAlert, setDisplay }) {
 	const [patient, setPatient] = useState({});
 	const [status, setStatus] = useState("");
 	const [notes, setNotes] = useState("");
@@ -123,6 +123,24 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 		}
 	}
 
+	function onClickEditStatus() {
+		if (handleAlert()) {
+			setMode("edit-status");
+		}
+	}
+
+	function onClickEditNotes() {
+		if (handleAlert()) {
+			setMode("edit-notes");
+		}
+	}
+
+	function onClickBack(event){
+		event.preventDefault();
+		setMode("");
+		setDisplay("");
+	}
+
 	if (patient) return (
 		<div id="patient-display">
 			<h2>Patient: {patient.first_name} {patient.last_name}</h2>
@@ -133,7 +151,7 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 				{mode === "edit-status" ? (
 					<form onSubmit={handleSubmitStatus}><button>Submit</button></form>
 				) : (
-					<button onClick={() => setMode("edit-status")}>Edit Status</button>
+					<button onClick={onClickEditStatus}>Edit Status</button>
 				)}
 			</div>
 			{mode === "edit-status" ? (
@@ -155,7 +173,7 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 						{mode === "edit-notes" ? (
 							<form onSubmit={handleSubmitNotes}><button>Submit</button></form>
 						) : (
-							<button onClick={() => setMode("edit-notes")} >Edit Notes</button>
+							<button onClick={onClickEditNotes} >Edit Notes</button>
 						)}
 					</div>
 					{mode === "edit-notes" ? (
@@ -176,6 +194,9 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 				appointments={patient.appointments}
 				handleClickAppointment={handleClickAppointment}
 			/>
+			<button id="patient-display-back" onClick={onClickBack}>
+				Back
+			</button>
 		</div>
 	);
 }

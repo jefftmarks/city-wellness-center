@@ -11,6 +11,11 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	margin-left: 22px;
+}
+
+#dr-portal-header h3 {
+	margin: 0 0 3px 0;
 }
 
 #dr-portal-header button {

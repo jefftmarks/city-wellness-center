@@ -19,8 +19,6 @@ class AdminsController < ApplicationController
 		end
 	end
 
-	
-
   private
     def set_admin
       @admin = Admin.find(params[:id])
