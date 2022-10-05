@@ -2,31 +2,17 @@ import React, { useEffect, useState } from "react";
 import PatientHistory from "./PatientHistory";
 import "./PatientDisplay.css";
 
-const today = new Date().toISOString().slice(0, 10);
-
-const patients = [
-	{id: 1, last_name: "Marks", first_name: "Jeff", email: "jeff@jeff.com", phone: "555-555-5555", status: "Working on relationship issues", appointments: [
-		{id: 2, time: "10:00", date: today, notes: "Talked about father."},
-		{id: 4, time: "10:30", date: today, notes: "Talked about siblings."},
-		{id: 5, time: "11:00", date: today, notes: "Talked about mother."}
-	]},
-	{id: 2, last_name: "Marks", first_name: "Bob", email: "bob@bob.com", phone: "555-555-5555", status: "Has a fear of heights", appointments: [
-		{id: 1, time: "09:30", date: today, notes: "Discussed coping mechanisms."},
-		{id: 3, time: "10:30", date: today, notes: "Taught meditation techniques."}
-	]}
-]
-
-function PatientDisplay({ record, mode, setMode, appointment, setAppointment, handleAlert, setDisplay }) {
+function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 	const [patient, setPatient] = useState({});
-	const [status, setStatus] = useState("");
-	const [notes, setNotes] = useState("");
+	const [appointments, setAppointments] = useState([]);
+	const [selectedAppointment, setSelectedAppointment] = useState({});
 
 	let formattedDate;
 	let formattedTime;
 
-	if (appointment.date) {
+	if (selectedAppointment.date) {
 		// reformat date
-		let str = appointment.date;
+		let str = selectedAppointment.date;
 		let mm = str.slice(5, 7);
 		let dd;
 		if (str[8] === "0") {
@@ -38,8 +24,8 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 		formattedDate = `${mm}/${dd}/${yyyy}`;
 		
 		// reformat time
-		let hour = parseInt(appointment.time.slice(0, 2));
-		let minutes = appointment.time.slice(3, 5);
+		let hour = parseInt(selectedAppointment.time.slice(0, 2));
+		let minutes = selectedAppointment.time.slice(3, 5);
 		if (hour === 0) {
 			formattedTime = `12:${minutes} AM`;
 		} else if (hour === 12) {
@@ -52,74 +38,101 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 	}
 
 	useEffect(() => {
-		let id = record.type === "appt" ? record.patient_id : record.id; 
-		const patient = patients[id - 1];
-		setPatient(patient);
-		setAppointment(record);
-		setStatus(patient.status);
-		setNotes(record.notes);
-		// setPatient(patients[record.patient_id + 1]);
-		// fetch(`/patients/${id}`)
-		// 	.then((res) => {
-		// 		if (res.ok) {
-		// 			res.json().then((patient) => setPatient(patient));
-		// 		} else {
-		// 			// error handling?
-		// 			res.json().then((errors) => console.log(errors));
-		// 		}
-		// 	})
+		let id = record.type === "appt" ? record.patient.id : record.id; 
+		fetch(`/patients/${id}`)
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((patient) => {
+						setPatient(patient);
+					});
+				} else {
+					// error handling?
+					res.json().then((errors) => console.log(errors));
+				}
+			})
 	}, [record]);
+
+	useEffect(() => {
+		fetch(`/appointments/patient/${patient.id}`)
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((appointments) => {
+						setAppointments(appointments);
+					});
+				} else {
+					// error handling?
+					res.json().then((errors) => console.log(errors));
+				}
+			})
+	}, [patient]);
+
+	function handleChangePatient(event) {
+		setPatient({
+			...patient,
+			status: event.target.value
+		})
+	}
+
+	function handleChangeAppointment(event) {
+		setSelectedAppointment({
+			...selectedAppointment,
+			notes: event.target.value
+		})
+	}
 
 	function handleSubmitStatus(event) {
 		event.preventDefault();
-		setMode("");
-		setPatient({...patient, status: status});
-		// fetch(`patients/${patient.id}`, {
-		// 	method: "PATCH",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify({status: status}),
-		// })
-		// 	.then((res) => {
-		// 		if (res.ok) {
-		// 			res.json().then((patient) => {
-		// 				setMode("");
-		// 				setPatient(patient);
-		// 			});
-		// 		} else {
-		// 			res.json().then((errors) => console.log(errors));
-		// 		}
-		// 	})
+		fetch(`patients/status/${patient.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({status: patient.status}),
+		})
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((patient) => {
+						setMode("");
+						setPatient(patient);
+					});
+				} else {
+					res.json().then((errors) => console.log(errors));
+				}
+			})
 	}
 
 	function handleSubmitNotes(event) {
 		event.preventDefault();
-		setMode("");
-		setAppointment({...appointment, notes: notes});
-		// fetch(`appontment/${appointment.id}`, {
-		// 	method: "PATCH",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify({notes: notes}),
-		// })
-		// 	.then((res) => {
-		// 		if (res.ok) {
-		// 			res.json().then((appointment) => {
-		// 				setMode("");
-		// 				setAppointment(appointment);
-		// 			});
-		// 		} else {
-		// 			res.json().then((errors) => console.log(errors));
-		// 		}
-		// 	})
+		fetch(`appointments/${selectedAppointment.id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({notes: selectedAppointment.notes}),
+		})
+			.then((res) => {
+				if (res.ok) {
+					res.json().then((updatedAppt) => {
+						setMode("");
+						setSelectedAppointment(updatedAppt);
+						const updatedAppointments = appointments.map((appointment => {
+							if (appointment.id === updatedAppt.id) {
+								return updatedAppt;
+							} else {
+								return appointment;
+							}
+						}))
+						setAppointments(updatedAppointments);
+					});
+				} else {
+					res.json().then((errors) => console.log(errors));
+				}
+			})
 	}
 
 	function handleClickAppointment(appointment) {
 		if (handleAlert()) {
-			setAppointment(appointment);
-			setNotes(appointment.notes)
+			setSelectedAppointment(appointment);
 		}
 	}
 
@@ -157,8 +170,8 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 			{mode === "edit-status" ? (
 				<textarea
 					id="edit-status-field"
-					onChange={(event) => setStatus(event.target.value)}
-					value={status}
+					onChange={handleChangePatient}
+					value={patient.status}
 				>
 				</textarea>
 			) : (
@@ -166,7 +179,7 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 			)}
 			<div id="patient-display-line"></div>
 			<h3>Patient History:</h3>
-			{appointment.date ? (
+			{selectedAppointment.date ? (
 				<div id="appt-notes">
 					<div id="notes-header-container">
 						<p id="notes-header">Notes &#8211; {formattedDate} at {formattedTime}</p>
@@ -179,19 +192,19 @@ function PatientDisplay({ record, mode, setMode, appointment, setAppointment, ha
 					{mode === "edit-notes" ? (
 						<textarea
 						id="edit-notes-field"
-						onChange={(event) => setNotes(event.target.value)}
-						value={notes}
+						onChange={handleChangeAppointment}
+						value={selectedAppointment.notes}
 						>
 						</textarea>
 					) : (
-						<p id="notes-text">{appointment.notes}</p>
+						<p id="notes-text">{selectedAppointment.notes}</p>
 					)}
 				</div>
 			) : null}
 			<p>Select Appointment Below to View Notes:</p>
 			<PatientHistory
-				selected={appointment.id}
-				appointments={patient.appointments}
+				selected={selectedAppointment.id}
+				appointments={appointments}
 				handleClickAppointment={handleClickAppointment}
 			/>
 			<button id="patient-display-back" onClick={onClickBack}>

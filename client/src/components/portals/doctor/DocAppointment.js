@@ -21,7 +21,7 @@ function DocAppointment({ appointment, handleOnClick }) {
 	return (
 		<tr onClick={() => handleOnClick(appointment)}>
 			<td>{formattedTime}</td>
-			<td>{appointment.patient}</td>
+			<td>{appointment.patient.first_name} {appointment.patient.last_name}</td>
 		</tr>
 	)
 }

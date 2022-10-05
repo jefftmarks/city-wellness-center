@@ -1,11 +1,6 @@
 class AppointmentsController < ApplicationController
 	before_action :set_appointment, only: [:update, :destroy]
 
-  # def index
-  #   appointments = Appointment.all
-  #   render json: appointments
-  # end
-
 	def by_date
 		date = params[:date]
 		appointments = Appointment.where(date: date)
@@ -16,10 +11,26 @@ class AppointmentsController < ApplicationController
 		end
 	end
 
-  # def show
-  #   appointment = find_params
-  #   render json: appointment
-  # end
+	def by_doctor
+		date = params[:date]
+		doctor_id = params[:doctor_id]
+		appointments = Appointment.where(date: date, doctor_id: doctor_id)
+		if appointments
+			render json: appointments, status: :ok
+		else
+			render json: { error: "Appointments not found" }, status: :not_found
+		end
+	end
+
+	def by_patient
+		patient_id = params[:patient_id]
+		appointments = Appointment.where(patient_id: patient_id)
+		if appointments
+			render json: appointments, status: :ok
+		else
+			render json: { error: "Appointments not found" }, status: :not_found
+		end
+	end
 
   def create
     appointment = Appointment.create!(appointment_params)
@@ -39,7 +50,7 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.permit(:id, :date, :time, :doctor_id, :patient_id)
+    params.permit(:id, :date, :time, :notes, :doctor_id, :patient_id)
   end
 
   def set_appointment

@@ -3,10 +3,16 @@ Rails.application.routes.draw do
   # resources :welcomes
   resources :appointments, only: [:create, :update, :destroy]
   resources :admins, only: [:update]
-  resources :patients, only: [:index, :update, :destroy, :create]
+  resources :patients, only: [:index, :show, :update, :destroy, :create]
   resources :doctors, only: [:index, :update, :destroy, :create]
 
 	get "/appointments/date/:date", to: "appointments#by_date"
+	get "/appointments/doctor/:doctor_id/date/:date", to: "appointments#by_doctor"
+	get "/appointments/patient/:patient_id", to: "appointments#by_patient"
+
+	get "/patients/doctor/:doctor_id", to: "patients#by_doctor"
+
+	patch "/patients/status/:id", to: "patients#update_status"
 
 	post "/login/admin", to: "admins#login"
 	post "/login/doctor", to: "doctors#login"
