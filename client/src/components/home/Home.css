@@ -6,17 +6,25 @@
 	height: 100vh;
 	width: 100vw;
 	display: flex;
-	justify-content: left;
+}
+
+#home-left-panel {
+	width: 45%;
+	height: 100%;
+	display: flex;
 	align-items: center;
 }
 
-/* #login-container {
+#home-right-panel {
+	width: 55%;
+	height: 100%;
 	position: relative;
-	top: 80px;
-	width: 100%;
-	height: 60%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 1px solid red;
-} */
+	top: 70px;
+}
+
+#home-right-panel h1 {
+	color: white;
+	font-family: prompt-light;
+	font-size: 5em;
+	margin: 20px 0 0 0;
+}

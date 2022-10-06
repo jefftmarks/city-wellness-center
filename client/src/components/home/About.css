@@ -1,0 +1,20 @@
+#about-page {
+	background-image: url("https://images.squarespace-cdn.com/content/v1/5e94c4e7b1883c2de09e8183/1632769676765-3EBPXON8V9FT9QFSSWDL/Office12.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom;
+	height: 100vh;
+	width: 100vw;
+}
+
+#doctor-card-container {
+	width: 100%;
+	height: auto;
+	position: relative;
+	top: 70px;
+	padding: 30px;
+	display: flex;
+	/* justify-content: space-around; */
+	flex-wrap: wrap;
+}
+
