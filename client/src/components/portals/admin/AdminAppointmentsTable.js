@@ -40,22 +40,32 @@ function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAler
 				onChange={(e) => setDate(e.target.value)}
 				value={date}
 			/>
-			<table id="appts-table">
-				<tbody>
-					<tr>
-						<th style={{width: "14%"}}>Time</th>
-						<th style={{width: "43%"}} >Patient</th>
-						<th style={{width: "43%"}}>Doctor</th>
-					</tr>
-					{appointments.map((appointment) => (
-						<AdminAppointment
-							key={appointment.id}
-							appointment={appointment}
-							handleOnClick={handleClickAppointment}
-						/>
-					))}
-				</tbody>
+			<table id="appts-table-heading">
+				<tr>
+					<th style={{width: "20%"}}>Last Name</th>
+					<th style={{width: "20%"}} >First Name</th>
+					<th style={{width: "17%"}} >Phone</th>
+					<th style={{width: "43%"}}>Email</th>
+				</tr>
 			</table>
+			<div id="appts-table-div">
+				<table id="appts-table">
+					<tr>
+						<th style={{width: "14%"}}></th>
+						<th style={{width: "43%"}} ></th>
+						<th style={{width: "43%"}}></th>
+					</tr>
+					<tbody>
+						{appointments.map((appointment) => (
+							<AdminAppointment
+								key={appointment.id}
+								appointment={appointment}
+								handleOnClick={handleClickAppointment}
+							/>
+						))}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	)
 }

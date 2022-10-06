@@ -2,7 +2,7 @@ class PatientsController < ApplicationController
 	before_action :set_patients, only: [:show, :update, :destroy, :all_appointments, :update_status]
 
   def index
-    patients = Patient.all
+    patients = Patient.all.order(:last_name)
     render json: patients
   end
 
@@ -22,7 +22,7 @@ class PatientsController < ApplicationController
 
 	def by_doctor
 		doctor = Doctor.find(params[:doctor_id])
-		patients = doctor.patients
+		patients = doctor.patients.order(:last_name).distinct
 		if patients
 			render json: patients, status: :ok
 		else

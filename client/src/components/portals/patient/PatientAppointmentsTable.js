@@ -21,21 +21,30 @@ function PatientAppointmentsTable({ user }) {
 	return (
 		<div id="patient-appts-table-container">
 			<h2>Appointments</h2>
-			<table id="patient-appts-table">
-				<tbody>
-					<tr>
+			<table id="patient-appts-table-heading">
+				<tr>
 					<th style={{width: "20%"}}>Date</th>
 					<th style={{width: "20%"}} >Time</th>
 					<th style={{width: "60%"}}>Doctor</th>
-					</tr>
-					{appointments.map((appointment) => (
-						<PatientAppointment
-							key={appointment.id}
-							appointment={appointment}
-						/>
-					))}
-				</tbody>
+				</tr>
 			</table>
+			<div id="patient-appts-table-div">
+				<table id="patient-appts-table">
+					<tr>
+						<th style={{width: "20%"}}></th>
+						<th style={{width: "20%"}} ></th>
+						<th style={{width: "60%"}}></th>
+					</tr>
+					<tbody>
+						{appointments.map((appointment) => (
+							<PatientAppointment
+								key={appointment.id}
+								appointment={appointment}
+							/>
+						))}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	)
 }

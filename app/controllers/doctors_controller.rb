@@ -2,7 +2,7 @@ class DoctorsController < ApplicationController
 	before_action :set_doctor, only: [:update, :destroy]
 
   def index
-    doctors = Doctor.all
+    doctors = Doctor.all.order(:last_name)
     render json: doctors
   end
 

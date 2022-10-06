@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PatientHistory from "./PatientHistory";
 import "./PatientDisplay.css";
 
-function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
+function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay, user }) {
 	const [patient, setPatient] = useState({});
 	const [appointments, setAppointments] = useState([]);
 	const [selectedAppointment, setSelectedAppointment] = useState({});
@@ -24,7 +24,6 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 		}
 		let yyyy = str.slice(0, 4);
 		formattedDate = `${mm}/${dd}/${yyyy}`;
-		
 		// reformat time
 		let hour = parseInt(selectedAppointment.time.slice(0, 2));
 		let minutes = selectedAppointment.time.slice(3, 5);
@@ -47,7 +46,8 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 			id = record.patient.id;
 			setSelectedAppointment(record);
 		} else {
-			id = record.id
+			id = record.id;
+			setSelectedAppointment("");
 		}
 		fetch(`/patients/${id}`)
 			.then((res) => {
@@ -140,6 +140,22 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 			})
 	}
 
+	// ~~~~~~~ Conditionally Render Edit Notes Button ~~~~~~~
+
+	function renderEditNotes() {
+		// Only the doctor whose appointment it was can edit the notes
+		if (selectedAppointment.doctor.id !== user.id ) return null;
+		if (mode === "edit-notes") {
+			return (
+				<form onSubmit={handleSubmitNotes}>
+					<button>Submit</button>
+				</form>
+			);
+		} else {
+			return <button onClick={onClickEditNotes} >Edit Notes</button>;
+		}
+	}
+
 	// ~~~~~~~ Alert Handling ~~~~~~~
 
 	function handleClickAppointment(appointment) {
@@ -197,11 +213,12 @@ function PatientDisplay({ record, mode, setMode, handleAlert, setDisplay }) {
 				<div id="appt-notes">
 					<div id="notes-header-container">
 						<p id="notes-header">Notes &#8211; {formattedDate} at {formattedTime}</p>
-						{mode === "edit-notes" ? (
+						{renderEditNotes()}
+						{/* {mode === "edit-notes" ? (
 							<form onSubmit={handleSubmitNotes}><button>Submit</button></form>
 						) : (
 							<button onClick={onClickEditNotes} >Edit Notes</button>
-						)}
+						)} */}
 					</div>
 					{mode === "edit-notes" ? (
 						<textarea

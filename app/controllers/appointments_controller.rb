@@ -1,6 +1,7 @@
 class AppointmentsController < ApplicationController
 	before_action :set_appointment, only: [:update, :destroy]
 
+	# Fetch all appointments by date (admin portal)
 	def by_date
 		date = params[:date]
 		appointments = Appointment.where(date: date).order(:time)
@@ -11,6 +12,7 @@ class AppointmentsController < ApplicationController
 		end
 	end
 
+	# Fetch all appointments by doctor (doctor portal)
 	def by_doctor
 		date = params[:date]
 		doctor_id = params[:doctor_id]
@@ -22,9 +24,10 @@ class AppointmentsController < ApplicationController
 		end
 	end
 
+	# Fetch appointment history of selected patient (doctor portal)
 	def by_patient
 		patient_id = params[:patient_id]
-		appointments = Appointment.where(patient_id: patient_id).order(:time, :date)
+		appointments = Appointment.where(patient_id: patient_id).order(date: :desc, time: :desc)
 		if appointments
 			render json: appointments, status: :ok
 		else
@@ -32,10 +35,11 @@ class AppointmentsController < ApplicationController
 		end
 	end
 
+	# Fetch all upcoming appointments for logged in patient (patient portal)
 	def upcoming
 		today = Date.today.to_time.iso8601.slice(0, 10)
 		patient_id = params[:patient_id]
-		appointments = Appointment.where(["date >= ? and patient_id = ?", today, patient_id]).order(:time)
+		appointments = Appointment.where(["date >= ? and patient_id = ?", today, patient_id]).order(:date, :time)
 		if appointments
 			render json: appointments, status: :ok
 		else

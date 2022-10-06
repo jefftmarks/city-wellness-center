@@ -4,8 +4,12 @@ import EditPatientProfile from "./EditPatientProfile";
 import "./PatientPortal.css";
 
 function PatientPortal({ user, setUser, handleClickSignOut }) {
+	// Display setting renders different forms on right panel and passes along payload of record data to the loaded display
 	const [display, setDisplay] = useState({page: ""});
+	// Mode enables and disables certain click functionality and triggers alerts when a record is being edited
 	const [mode, setMode] = useState("");
+
+	// ~~~~~~~ Render Displays in Right Panel ~~~~~~~
 	
 	function renderDisplay() {
 		if (display.page === "edit-profile") {

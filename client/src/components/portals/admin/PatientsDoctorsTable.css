@@ -1,51 +1,59 @@
-#patients-drs-table-container {
+#pd-table-container {
 	border-radius: 15px;
 	box-shadow: 0px 1px 2px #888888;
 	width: 90%;
 	height: 340px;
 	padding: 18px;
-	overflow-y: scroll;
 	background-color: white;
 }
 
-#patients-drs-table-header {
+#pd-table-header {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 18px;
 }
 
-#patients-drs-table-header h2 {
+#pd-table-header h2 {
 	margin: 0;
 }
 
-#patients-drs-table {
-	margin-top: 18px;
+#pd-table-heading {
 	border-collapse: collapse;
 	width: 100%;
-}
-
-#patients-drs-table th {
-  text-align: left;
+	text-align: left;
 	padding: 8px;
-	background-color: white;
+	margin-top: 18px;
 }
 
-#patients-drs-table td {
+#pd-table-div {
+	margin-top: 3px;
+	width: 100%;
+	height: 190px;
+	overflow-y: scroll;
+	display: block;
+}
+
+#pd-table {
+	border-collapse: collapse;
+	width: 100%;
+	white-space: nowrap;
+}
+
+#pd-table td {
 	border: 1px solid #ddd;
 	padding: 8px;
 }
 
-#patients-drs-table tr:nth-child(even){
+#pd-table tr:nth-child(even){
 	background-color: #f2f2f2;
 }
 
-#patients-drs-table tr:hover {
+#pd-table tr:hover {
 	background-color: #ddd;
 }
 
-#patients-drs-table-container button {
+#pd-table-container button {
 	height: 21.33px;
-	/* background-color: white; */
 	cursor: pointer;
 }
 
@@ -57,7 +65,7 @@
 	background-color: #f2fce8;
 }
 
-#patients-drs-table-container .selected {
+#pd-table-container .selected {
 	background-color: #adff2f; 
 }
 

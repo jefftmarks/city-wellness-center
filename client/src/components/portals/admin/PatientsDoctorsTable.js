@@ -51,8 +51,8 @@ function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor
 	}
 
 	return (
-		<div id="patients-drs-table-container">
-			<div id="patients-drs-table-header">
+		<div id="pd-table-container">
+			<div id="pd-table-header">
 				<h2>{categoryHeader}</h2>
 				<button id="create-record-btn" onClick={onClickCreateRecord}>
 					Create {category === "patients" ? "Patient" : "Doctor"}
@@ -72,23 +72,33 @@ function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor
 			>
 				Doctors
 			</button>
-		<table id="patients-drs-table">
-			<tbody>
+			<table id="pd-table-heading">
 				<tr>
 					<th style={{width: "20%"}}>Last Name</th>
 					<th style={{width: "20%"}} >First Name</th>
 					<th style={{width: "17%"}} >Phone</th>
 					<th style={{width: "43%"}}>Email</th>
 				</tr>
-				{records.map((record) => (
-					<Record
-						key={record.id}
-						record={record}
-						handleOnClick={handleClickRecord}
-					/>
-				))}
-			</tbody>
-		</table>
+			</table>
+			<div id="pd-table-div">
+				<table id="pd-table">
+					<tr id="pd-table-invis">
+						<th style={{width: "20%"}}></th>
+						<th style={{width: "20%"}} ></th>
+						<th style={{width: "17%"}}></th>
+						<th style={{width: "43%"}}></th>
+					</tr>
+					<tbody>
+						{records.map((record) => (
+							<Record
+								key={record.id}
+								record={record}
+								handleOnClick={handleClickRecord}
+							/>
+						))}
+					</tbody>
+				</table>
+			</div>
 	</div>
 	)
 }

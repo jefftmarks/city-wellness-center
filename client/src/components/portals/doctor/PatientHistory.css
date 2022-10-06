@@ -1,17 +1,27 @@
-#history-table {
-	/* margin-top: 18px; */
+#history-table-heading {
 	border-collapse: collapse;
 	width: 100%;
+	text-align: left;
+	padding: 8px;
+	margin-top: 18px;
+}
+
+#history-table-div {
+	margin-top: 3px;
+	width: 100%;
+	height: 190px;
+	overflow-y: scroll;
+	display: block;
+}
+
+#history-table {
+	border-collapse: collapse;
+	width: 100%;
+	white-space: nowrap;
 }
 
 #history-table h3 {
 	margin: 0 0 20px 0;
-}
-
-#history-table th {
-  text-align: left;
-	padding: 8px;
-	background-color: white;
 }
 
 #history-table td {
