@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Welcome from "./components/welcome/Welcome";
-import Login from "./components/welcome/Login";
+import Home from "./components/welcome/Home";
 import About from "./components/welcome/About";
 import PatientPortal from "./components/portals/patient/PatientPortal";
 import DoctorPortal from "./components/portals/doctor/DoctorPortal";
@@ -86,9 +85,7 @@ function App() {
 			case "loading":
 				return <h2>Loading...</h2>
 			default:
-				return (
-					<Welcome />
-				);
+				return <Home onLogin={handleLogin}/>;
 		}
 	}
 
@@ -100,12 +97,7 @@ function App() {
 
 	function renderLoginAndAbout() {
 		if (role === "") {
-			return (
-				<>
-					<Route path="/login" element={<Login onLogin={handleLogin} />} />
-					<Route path="/about" element={<About/>} />
-				</>
-			)
+			return <Route path="/about" element={<About/>} />
 		}
 	}
 

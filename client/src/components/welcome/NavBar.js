@@ -8,7 +8,6 @@ function NavBar() {
 		<div id="navbar">
 			<Link to="/"><button>Home</button></Link>
 			<Link to="/about"><button>About</button></Link>
-			<Link to="/login"><button>Login</button></Link>
 		</div>
 	)
 }

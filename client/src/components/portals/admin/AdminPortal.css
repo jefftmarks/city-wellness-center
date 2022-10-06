@@ -7,7 +7,7 @@
 
 #admin-portal-header {
 	width: 100%;
-	height: 70px;
+	height: 55px;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -33,7 +33,6 @@
 #admin-left-panel, #admin-right-panel {
 	min-width: 500px;
 	height: 100%;
-	flex-grow: 1;
 
 	display: flex;
 	flex-direction: column;
@@ -42,11 +41,11 @@
 }
 
 #admin-left-panel {
-	width: 60%;
+	width: 50%;
 }
 
 #admin-right-panel {
-	width: 40%;
+	width: 50%;
 }
 
 .admin-portal-div {
@@ -56,4 +55,10 @@
 #admin-display-container {
 	height: 710px;
 	width: 90%;
+}
+
+@media screen and (max-width: 1000px) {
+  #admin-right-panel {
+    margin-top: 30px; 
+  }
 }

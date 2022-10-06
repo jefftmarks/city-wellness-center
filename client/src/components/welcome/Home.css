@@ -1,0 +1,22 @@
+#home-page {
+	background-image: url("https://images.everydayhealth.com/images/what-makes-someone-a-mental-health-expert-1440x810.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+/* #login-container {
+	position: relative;
+	top: 80px;
+	width: 100%;
+	height: 60%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid red;
+} */
