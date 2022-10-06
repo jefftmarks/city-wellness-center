@@ -6,8 +6,8 @@ function NavBar() {
 
 	return (
 		<div id="navbar">
-			<Link to="/"><button>Home</button></Link>
-			<Link to="/about"><button>About</button></Link>
+			<Link to="/"><p>Home</p></Link>
+			<Link to="/about"><p>About</p></Link>
 		</div>
 	)
 }

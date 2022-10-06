@@ -10,5 +10,21 @@ body {
 .portal-container {
 	width: 100%;
 	height: 100%;
-	/* background-color: #d8e3d9; */
+}
+
+/* Fonts */
+
+@font-face {
+	font-family: prompt-thin;
+	src: url("./fonts/Prompt/Prompt-Thin.ttf");
+}
+
+@font-face {
+	font-family: prompt-extra-light;
+	src: url("./fonts/Prompt/Prompt-ExtraLight.ttf");
+}
+
+@font-face {
+	font-family: prompt-light;
+	src: url("./fonts/Prompt/Prompt-Light.ttf");
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Home from "./components/welcome/Home";
-import About from "./components/welcome/About";
+import Home from "./components/home/Home";
+import About from "./components/home/About";
 import PatientPortal from "./components/portals/patient/PatientPortal";
 import DoctorPortal from "./components/portals/doctor/DoctorPortal";
 import AdminPortal from "./components/portals/admin/AdminPortal";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
-import NavBar from "./components/welcome/NavBar";
+import NavBar from "./components/home/NavBar";
 
 function App() {
 	const [user, setUser] = useState(null);

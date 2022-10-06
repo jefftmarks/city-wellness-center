@@ -5,7 +5,12 @@ import "./Home.css";
 function Home({ onLogin }) {
 	return (
 		<div id="home-page">
-				<LoginForm onLogin={onLogin} />
+				<div id="home-left-panel">
+					<LoginForm onLogin={onLogin}/>
+				</div>
+				<div id="home-right-panel">
+					<h1>City Wellness Center</h1>
+				</div>
 		</div>
 	)
 }

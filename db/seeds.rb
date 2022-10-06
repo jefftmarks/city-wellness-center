@@ -5,9 +5,9 @@ Admin.destroy_all
 
 puts "seeding starting"
 
-Doctor.create(password: "1234", first_name: "Jennifer", last_name: "Lepen", bio: "I am a licensed therapist in the state of New York", certification: "Licensed Professional Conselor(LPC)", image: "https://www.sussmancounseling.com/images/rachel_sussman.png", email: "jennifer@doctor.com", phone: "555-333-4444")
-Doctor.create(password: "1234", first_name: "Ronald", last_name: "McDonald", bio: "I am a licensed therapist in the state of New York", certification: "Licensed Professional Conselor(LPC)", image: "https://www.sussmancounseling.com/images/rachel_sussman.png", email: "ronald@doctor.com", phone: "555-333-4444")
-Doctor.create(password: "1234", first_name: "Hillary", last_name: "Clinton", bio: "I am a licensed therapist in the state of New York", certification: "Licensed Professional Conselor(LPC)", image: "https://www.sussmancounseling.com/images/rachel_sussman.png", email: "hillary@doctor.com", phone: "555-333-4444")
+Doctor.create(password: "1234", first_name: "Jennifer", last_name: "Lepen", bio: "I am a licensed therapist in the state of New York", certification: "Licensed Professional Conselor(LPC)", image: "https://ericajmitchell.com/wp-content/uploads/2016/02/ShaylaLawson_by-Erica-J-Mitchell-Photographer_002_1x1_SocialMedia_Thumbs.jpg", email: "jennifer@doctor.com", phone: "555-333-4444")
+Doctor.create(password: "1234", first_name: "Ronda", last_name: "McDonald", bio: "I am a licensed therapist in the state of New York", certification: "Licensed Professional Conselor(LPC)", image: "https://ericajmitchell.com/wp-content/uploads/2021/11/Sue-Schoenfeld-by-Erica-J-Mitchell-Photographer106.jpg", email: "ronald@doctor.com", phone: "555-333-4444")
+Doctor.create(password: "1234", first_name: "Hillary", last_name: "Clinton", bio: "I am a licensed therapist in the state of New York", certification: "Licensed Professional Conselor(LPC)", image: "https://ericajmitchell.com/wp-content/uploads/2022/02/Norma-Mace-by-Erica-J-Mitchell-Photographer-011.jpg", email: "hillary@doctor.com", phone: "555-333-4444")
 
 Patient.create(email: "bob@bob.com" , password: "1234", first_name: "Bob", last_name: "Dylan", status: "Trying out new medication", phone: "555-333-4444")
 Patient.create(email: "alan@alan.com" , password: "1234", first_name: "Sarah", last_name: "Parker", status: "Afraid of heights", phone: "555-333-4444")
