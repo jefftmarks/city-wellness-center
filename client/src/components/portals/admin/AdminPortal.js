@@ -11,17 +11,21 @@ import "./AdminPortal.css";
 const today = new Date().toISOString().slice(0, 10);
 
 function AdminPortal({ handleClickSignOut, user, setUser }) {
+	// Display setting renders different forms on right panel and passes along payload of record data to the loaded display
 	const [display, setDisplay] = useState({page: ""});
+	// Mode enables and disables certain click functionality and triggers alerts when a record is being edited
 	const [mode, setMode] = useState("");
 
 	const [date, setDate] = useState(today);
 	const [category, setCategory] = useState("patients");
+	const [appointments, setAppointments] = useState([]);
+	const [records, setRecords] = useState([]);
 
+	// Handle selection of patient and doctor when creating new appointment
 	const [apptPatient, setApptPatient] = useState(null);
 	const [apptDoctor, setApptDoctor] = useState(null);
 
-	const [appointments, setAppointments] = useState([]);
-	const [records, setRecords] = useState([]);
+	// ~~~~~~~ Render Displays in Right Panel ~~~~~~~
 
 	function renderDisplay() {
 		switch (display.page) {
@@ -114,7 +118,13 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 					return appt;
 				}
 			})
-			setAppointments(updatedAppointments);
+			// Sort by time
+			const sortedAppointments = updatedAppointments.sort((a, b) => {
+				const x = parseFloat(a.time.split(":").join("."));
+				const y = parseFloat(b.time.split(":").join("."));
+				return x - y;
+			})
+			setAppointments(sortedAppointments);
 		}
 	}
 
@@ -131,7 +141,12 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 		setDisplay({page: ""})
 		setMode("");
 		if (record) {
-			setRecords([...records, record]);
+			const updatedRecords = [...records, record];
+			// Sort by last name
+			const sortedRecords = updatedRecords.sort((a, b) => {
+				return a.last_name.localeCompare(b.last_name);
+			});
+			setRecords(sortedRecords);
 		}
 	}
 
@@ -139,7 +154,7 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 		setDisplay({page: ""});
 		setMode("");
 		if (updatedRecord && updatedRecord.category === category) {
-			// map through and update records if current display category matches record display
+			// Map through and update records if current display category matches record display
 			const updatedRecords = records.map((record) => {
 				if (record.id === updatedRecord.id) {
 					return updatedRecord;
@@ -148,7 +163,7 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 				}
 			})
 			setRecords(updatedRecords);
-			// map through appointments and update any record on display that matches id of updated record
+			// Map through appointments and update any record on display that matches id of updated record
 			if (updatedRecord) {
 				const updatedAppointments = appointments.map((appt) => {
 					if (updatedRecord.category === "doctors" && updatedRecord.id === appt.doctor.id) {
@@ -175,7 +190,7 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 		setMode("");
 		const updatedRecords = records.filter((record) => record.id !== delRecord.id);
 		setRecords(updatedRecords);
-		// map through appointments and update any record on display that matches id of updated record
+		// Map through appointments and update any record on display that matches id of updated record
 		if (delRecord) {
 			let updatedAppointments;
 			if (delRecord.category === "doctors") {

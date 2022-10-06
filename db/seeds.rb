@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 Doctor.destroy_all
 Appointment.destroy_all
 Patient.destroy_all
@@ -12,18 +5,24 @@ Admin.destroy_all
 
 puts "seeding starting"
 
-Doctor.create(password:"1234", first_name:"Jennifer", last_name:"Lepen", bio:"I am a licensed therapist in the state of New York", certification:"Licensed Professional Conselor(LPC)", image:"https://www.sussmancounseling.com/images/rachel_sussman.png", email:"doctor@doctor.com", phone:"555-333-4444")
-Doctor.create(password:"1234", first_name:"Ronald", last_name:"McDonald", bio:"I am a licensed therapist in the state of New York", certification:"Licensed Professional Conselor(LPC)", image:"https://www.sussmancounseling.com/images/rachel_sussman.png", email:"ronald@doctor.com", phone:"555-333-4444")
-Doctor.create(password:"1234", first_name:"Hillary", last_name:"Clinton", bio:"I am a licensed therapist in the state of New York", certification:"Licensed Professional Conselor(LPC)", image:"https://www.sussmancounseling.com/images/rachel_sussman.png", email:"hillary@doctor.com", phone:"555-333-4444")
+Doctor.create(password: "1234", first_name: "Jennifer", last_name: "Lepen", bio: "I am a licensed therapist in the state of New York", certification: "Licensed Professional Conselor(LPC)", image: "https://www.sussmancounseling.com/images/rachel_sussman.png", email: "jennifer@doctor.com", phone: "555-333-4444")
+Doctor.create(password: "1234", first_name: "Ronald", last_name: "McDonald", bio: "I am a licensed therapist in the state of New York", certification: "Licensed Professional Conselor(LPC)", image: "https://www.sussmancounseling.com/images/rachel_sussman.png", email: "ronald@doctor.com", phone: "555-333-4444")
+Doctor.create(password: "1234", first_name: "Hillary", last_name: "Clinton", bio: "I am a licensed therapist in the state of New York", certification: "Licensed Professional Conselor(LPC)", image: "https://www.sussmancounseling.com/images/rachel_sussman.png", email: "hillary@doctor.com", phone: "555-333-4444")
 
-Patient.create(email:"first@gmail.com" , password:"1234", first_name:"Alan", last_name:"Rolands", status:"green 3", phone:"347 222 1111")
-Patient.create(email:"second@gmail.com" , password:"1234", first_name:"Alan", last_name:"Rolands", status:"green 2", phone:"931 000 9999")
-Patient.create(email:"third@gmail.com" , password:"1234", first_name:"Alan", last_name:"Rolands", status:"red 2", phone:"917 333 777")
+Patient.create(email: "bob@bob.com" , password: "1234", first_name: "Bob", last_name: "Dylan", status: "Trying out new medication", phone: "555-333-4444")
+Patient.create(email: "alan@alan.com" , password: "1234", first_name: "Sarah", last_name: "Parker", status: "Afraid of heights", phone: "555-333-4444")
+Patient.create(email: "spongebob@spongebob.com" , password: "1234", first_name: "Spongebob", last_name: "Squarepants", status: "Can only meet remotely", phone: "555-333-4444")
 
-Appointment.create(date:"2022-10-04", time:"09:30", doctor_id:Doctor.all.sample.id, patient_id:Patient.all.sample.id, notes:"Plan out more outings with your spouse")
-Appointment.create(date:"2022-10-04", time:"08:30", doctor_id:Doctor.all.sample.id, patient_id:Patient.all.sample.id, notes:"Should read more often")
-Appointment.create(date:"2022-10-04", time:"10:30", doctor_id:Doctor.all.sample.id, patient_id:Patient.all.sample.id, notes:"Anger problem")
+today = Date.today.to_time.iso8601.slice(0, 10)
+tomorrow = Date.today.next_day.to_time.iso8601.slice(0, 10)
 
+Appointment.create(date: today, time: "09:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Talked about issues with family")
+Appointment.create(date: today, time: "08:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Discussed how they would like to read more often")
+Appointment.create(date: today, time: "10:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Was not being very responsive")
+
+Appointment.create(date: tomorrow, time: "09:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Having issues with spouse")
+Appointment.create(date: tomorrow, time: "08:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Expressed concern over eating habits")
+Appointment.create(date: tomorrow, time: "10:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Making a lot of progress")
 
 Admin.create(email:"admin@admin.com", password:"admin", first_name:"Jeff", last_name:"Marks")
 
