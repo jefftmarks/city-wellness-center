@@ -3,7 +3,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: bottom;
-	height: 100vh;
+	height: 100%;
 	width: 100vw;
 	overflow: hidden;
 
@@ -13,15 +13,17 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: 100%;
+	height: 90%;
 	position: relative;
-	top: 70px;
+	top: 60px;
+	bottom: 70px;
 }
 
 #doctor-card-container {
 	width: 100%;
 	height: 100%;
-	padding: 30px;
+	padding-bottom: 30px;
+	padding-top: 40px;
 	display: flex;
 	flex-wrap: wrap;
 	overflow-y: scroll;
