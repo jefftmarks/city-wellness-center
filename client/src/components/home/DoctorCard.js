@@ -4,7 +4,10 @@ import "./DoctorCard.css";
 function DoctorCard({ doctor }) {
 	return (
 		<div className="doctor-card">
-			<img src={doctor.image} alt="doctor" />
+			<img
+				src={doctor.image ? doctor.image : "https://www.exhibitindexes.com/product_images/uploaded_images/legal-pads.jpeg"}
+				alt="doctor"
+			/>
 			<div className="doctor-info">
 				<p>{doctor.first_name} {doctor.last_name}</p>
 				<p>{doctor.certification ? doctor.certification : ""}</p>

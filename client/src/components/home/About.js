@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DoctorCard from "./DoctorCard";
+import Footer from "./Footer";
 import "./About.css";
 
 function About() {
@@ -10,7 +11,6 @@ function About() {
 			.then((res) => res.json())
 			.then((data) => {setDoctors(data)});
 	}, [])
-	console.log(doctors)
 
 	return (
 		<div id="about-page">
@@ -19,6 +19,7 @@ function About() {
 					<DoctorCard key={doctor.id} doctor={doctor} />
 				))}
 			</div>
+			<Footer />
 		</div>
 	);
 }
