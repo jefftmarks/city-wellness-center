@@ -10,8 +10,10 @@ function EditRecord({ record, mode, setMode, onEditRecord, onDeleteRecord }) {
 	}
 	const [formData, setFormData] = useState(initializedForm);
 
+	// patients --> Patient, doctors --> Doctor
 	const categoryHeader = record.category[0].toUpperCase() + record.category.slice(1, record.category.length - 1);
 
+	// Autofill form with record info
 	useEffect(() => {
 		setFormData({
 			email: record.email,
@@ -41,6 +43,7 @@ function EditRecord({ record, mode, setMode, onEditRecord, onDeleteRecord }) {
 					res.json().then((data) => {
 						const payload = {
 							...data,
+							// Include category in payload to update correct record data currently displayed on page
 							category: record.category
 						};
 						onEditRecord(payload);

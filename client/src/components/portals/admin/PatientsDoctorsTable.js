@@ -4,6 +4,7 @@ import "./PatientsDoctorsTable.css";
 
 function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor, category, setCategory, records, setRecords }) {
 
+	// patients --> Patient, doctors --> Doctor
 	const categoryHeader = category[0].toUpperCase() + category.slice(1);
 
 	useEffect(() => {
@@ -13,6 +14,8 @@ function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor
 			.catch((err) => console.error(err));
 	}, [category]);
 
+
+	// Alert handling specific to this component
 	function handleAlert() {
 		switch (mode) {
 			case "edit":
@@ -26,6 +29,7 @@ function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor
 		}
 	}
 
+	// If in create appointment mode, clicking on patient or doctor will update create appointment form
 	function handleClickRecord(record) {
 		if (!handleAlert()) return; 
 		if (mode === "create-appointment") {
@@ -45,6 +49,7 @@ function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor
 			return;
 		}
 		if (handleAlert()) {
+			// include category in payload to determine whether creating patient or doctor
 			setDisplay({page: "record-new", category: category});
 			setMode("create-record");
 		}

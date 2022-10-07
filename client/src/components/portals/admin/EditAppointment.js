@@ -4,6 +4,7 @@ import "./EditAppointment.css";
 function EditAppointment({ appointment, onEditAppointment, onDeleteAppointment, mode, setMode }) {
 	const [formData, setFormData] = useState(appointment);
 
+	// Autofill form with appointment info
 	useEffect(() => {
 		setFormData(appointment);
 	}, [appointment]);
@@ -30,7 +31,6 @@ function EditAppointment({ appointment, onEditAppointment, onDeleteAppointment, 
 				if (res.ok) {
 					res.json().then((appointment) => onEditAppointment(appointment));
 				} else {
-					// figure out error handling
 					res.json().then((errors) => console.log(errors));
 				}
 			})

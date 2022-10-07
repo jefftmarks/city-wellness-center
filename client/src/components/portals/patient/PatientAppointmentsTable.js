@@ -5,6 +5,7 @@ import "./PatientAppointmentsTable.css";
 function PatientAppointmentsTable({ user }) {
 	const [appointments, setAppointments] = useState([]);
 
+	// Populate table with patients upcoming appointments
 	useEffect(() => {
 		fetch(`/appointments/upcoming/${user.id}`)
 			.then((res) => {

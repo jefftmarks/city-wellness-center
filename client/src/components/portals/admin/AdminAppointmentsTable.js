@@ -4,6 +4,7 @@ import "./AdminAppointmentsTable.css";
 
 function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAlert, setAppointments, appointments }) {
 
+	// Populate appointments according to date input (default date of today passed down as prop)
 	useEffect(() => {
 		fetch(`/appointments/date/${date}`)
 			.then((res) => {
@@ -13,6 +14,7 @@ function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAler
 			})
 	}, [date])
 
+	// Include page attribute in payload to determine form display
 	function handleClickAppointment(appointment) {
 		if (handleAlert()) {
 			const payload = {data: appointment, page: "appointment-edit"};

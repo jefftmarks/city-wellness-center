@@ -5,6 +5,7 @@ import "./PatientsTable.css";
 function PatientsTable({ setDisplay, user, handleAlert }) {
 	const [records, setRecords] = useState([]);
 
+	// Populate with patients that belong to doctor
 	useEffect(() => {
 		fetch(`/patients/doctor/${user.id}`)
 		.then((res) => {
@@ -16,8 +17,11 @@ function PatientsTable({ setDisplay, user, handleAlert }) {
 		})
 	}, [user]);
 
+
 	function handleClickPatient(patient) {
 		if (handleAlert()) {
+			// Include page in payload to render correct form
+			// Include type of "patient" in payload to conditionally render the patient display page
 			const payload = {data: {...patient, type: "patient"}, page: "patient"};
 			setDisplay(payload);
 		}

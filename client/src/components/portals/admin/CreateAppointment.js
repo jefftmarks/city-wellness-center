@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./CreateAppointment.css";
 
+// Appointment cannot be created before current date
 const today = new Date().toISOString().slice(0, 10);
 
 function CreateAppointment({ patient, doctor, onCreateAppointment }) {
@@ -37,7 +38,6 @@ function CreateAppointment({ patient, doctor, onCreateAppointment }) {
 							onCreateAppointment(appointment);
 						});
 					} else {
-						// figure out error handling
 						res.json().then((errors) => console.log(errors));
 					}
 				})

@@ -10,6 +10,7 @@ function EditAdminProfile({ user, setUser, setMode, setDisplay }) {
 		<li key={error}>{error}</li>
 	));
 
+	// Autofill form with admin email
 	useEffect(() => {
 		setFormData({...formData, email: user.email});
 	}, [user]);
