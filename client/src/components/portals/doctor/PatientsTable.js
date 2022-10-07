@@ -31,21 +31,25 @@ function PatientsTable({ setDisplay, user, handleAlert }) {
 		<div id="patients-table-container">
 			<h2>Patients</h2>
 			<table id="patients-table-heading">
+				<thead>
 					<tr>
 						<th style={{width: "20%"}}>Last Name</th>
 						<th style={{width: "20%"}} >First Name</th>
 						<th style={{width: "17%"}} >Phone</th>
 						<th style={{width: "43%"}}>Email</th>
 					</tr>
-				</table>
+				</thead>
+			</table>
 			<div id="patients-table-div">
 				<table id="patients-table">
-					<tr>
-						<th style={{width: "20%"}}></th>
-						<th style={{width: "20%"}} ></th>
-						<th style={{width: "17%"}} ></th>
-						<th style={{width: "43%"}}></th>
-					</tr>
+					<thead>
+						<tr>
+							<th style={{width: "20%"}}></th>
+							<th style={{width: "20%"}} ></th>
+							<th style={{width: "17%"}} ></th>
+							<th style={{width: "43%"}}></th>
+						</tr>
+					</thead>
 					<tbody>
 						{records.map((record) => (
 							<Record

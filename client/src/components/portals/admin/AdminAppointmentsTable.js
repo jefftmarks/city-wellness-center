@@ -43,20 +43,23 @@ function AdminAppointmentsTable({ date, setDate, setDisplay, setMode, handleAler
 				value={date}
 			/>
 			<table id="appts-table-heading">
-				<tr>
-					<th style={{width: "20%"}}>Last Name</th>
-					<th style={{width: "20%"}} >First Name</th>
-					<th style={{width: "17%"}} >Phone</th>
-					<th style={{width: "43%"}}>Email</th>
-				</tr>
+				<thead>
+					<tr>
+						<th style={{width: "14%"}}>Time</th>
+						<th style={{width: "43%"}}>Patient</th>
+						<th style={{width: "43%"}}>Doctor</th>
+					</tr>
+				</thead>
 			</table>
 			<div id="appts-table-div">
 				<table id="appts-table">
-					<tr>
-						<th style={{width: "14%"}}></th>
-						<th style={{width: "43%"}} ></th>
-						<th style={{width: "43%"}}></th>
-					</tr>
+					<thead>
+						<tr>
+							<th style={{width: "14%"}}></th>
+							<th style={{width: "43%"}} ></th>
+							<th style={{width: "43%"}}></th>
+						</tr>
+					</thead>
 					<tbody>
 						{appointments.map((appointment) => (
 							<AdminAppointment

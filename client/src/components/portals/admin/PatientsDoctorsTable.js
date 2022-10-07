@@ -78,21 +78,25 @@ function PatientsDoctorsTable({ setDisplay, mode, setMode, setPatient, setDoctor
 				Doctors
 			</button>
 			<table id="pd-table-heading">
-				<tr>
-					<th style={{width: "20%"}}>Last Name</th>
-					<th style={{width: "20%"}} >First Name</th>
-					<th style={{width: "17%"}} >Phone</th>
-					<th style={{width: "43%"}}>Email</th>
-				</tr>
+				<thead>
+					<tr>
+						<th style={{width: "20%"}}>Last Name</th>
+						<th style={{width: "20%"}} >First Name</th>
+						<th style={{width: "17%"}} >Phone</th>
+						<th style={{width: "43%"}}>Email</th>
+					</tr>
+				</thead>
 			</table>
 			<div id="pd-table-div">
 				<table id="pd-table">
-					<tr id="pd-table-invis">
-						<th style={{width: "20%"}}></th>
-						<th style={{width: "20%"}} ></th>
-						<th style={{width: "17%"}}></th>
-						<th style={{width: "43%"}}></th>
-					</tr>
+					<thead>
+						<tr id="pd-table-invis">
+							<th style={{width: "20%"}}></th>
+							<th style={{width: "20%"}} ></th>
+							<th style={{width: "17%"}}></th>
+							<th style={{width: "43%"}}></th>
+						</tr>
+					</thead>
 					<tbody>
 						{records.map((record) => (
 							<Record

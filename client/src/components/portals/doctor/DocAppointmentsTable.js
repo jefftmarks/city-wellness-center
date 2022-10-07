@@ -38,17 +38,21 @@ function DocAppointmentsTable({ setDisplay, handleAlert, user }) {
 				value={date}
 			/>
 			<table id="dr-appts-table-heading">
-				<tr>
-					<th style={{width: "14%"}}>Time</th>
-					<th style={{width: "86%"}} >Patient</th>
-				</tr>
+				<thead>
+					<tr>
+						<th style={{width: "14%"}}>Time</th>
+						<th style={{width: "86%"}} >Patient</th>
+					</tr>
+				</thead>
 			</table>
 			<div id="dr-appts-table-div">
 				<table id="dr-appts-table">
-					<tr>
-						<th style={{width: "14%"}}></th>
-						<th style={{width: "86%"}} ></th>
-					</tr>
+					<thead>
+						<tr>
+							<th style={{width: "14%"}}></th>
+							<th style={{width: "86%"}} ></th>
+						</tr>
+					</thead>
 					<tbody>
 						{appointments.map((appointment) => (
 							<DocAppointment
