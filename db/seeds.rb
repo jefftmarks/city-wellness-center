@@ -14,7 +14,7 @@ puts "seeding starting"
 
 Doctor.create(password:"1234", first_name:"Jennifer", last_name:"Lepen", bio:"I am a licensed therapist in the state of New York", certification:"Licensed Professional Conselor(LPC)", image:"https://images.pexels.com/photos/5699484/pexels-photo-5699484.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", email:"doctor@doctor.com", phone:"555-333-4444")
 Doctor.create(password:"1234", first_name:"Ronald", last_name:"McDonald", bio:"I am a licensed therapist in the state of New York", certification:"Licensed Professional Conselor(LPC)", image:"https://images.pexels.com/photos/4098347/pexels-photo-4098347.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", email:"ronald@doctor.com", phone:"555-333-4444")
-Doctor.create(password:"1234", first_name:"Hillary", last_name:"Clinton", bio:"I am a licensed therapist in the state of New York", certification:"Licensed Professional Conselor(LPC)", image:"https://www.sussmancounseling.com/images/rachel_sussman.png", email:"hillary@doctor.com", phone:"555-333-4444")
+Doctor.create(password:"1234", first_name:"Hillary", last_name:"Clinton", bio:"I am a licensed therapist in the state of New York", certification:"Licensed Professional Conselor(LPC)", image:"https://images.squarespace-cdn.com/content/v1/5a9adc57f793929dc7e72292/1544292058173-L34CJOHG3PZ6EQUP83ON/NYE-Therapist-Sam-headshot.jpeg?format=1000w", email:"hillary@doctor.com", phone:"555-333-4444")
 Doctor.create(password:"1323", first_name:"Paul", last_name:"Burns", bio:"I am a licensed therapist in the state of Delaware", certification:"Licensed mental health counselors (LMHCs)", image:"https://images.pexels.com/photos/4100672/pexels-photo-4100672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", email:"paul@doctor.com", phone:"555-333-4444")
 Doctor.create(password:"0329", first_name:"Matt", last_name:"Just", bio:"I am a licensed therapist in the state of Maine", certification:"Licensed mental health counselors (LMHCs)", image:"https://images.pexels.com/photos/5699419/pexels-photo-5699419.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", email:"matt@doctor.com", phone:"585-033-4444")
 Doctor.create(password:"1237", first_name:"Jessica", last_name:"McDonald", bio:"I am a licensed therapist in the state of California", certification:"Licensed Professional Conselor(LPC)", image:"https://www.talkspace.com/blog/wp-content/uploads/2020/03/psychologist-psychiatrist-vs-therapist-1-800x500.jpg", email:"jessica@doctor.com", phone:"559-333-4444")
@@ -74,12 +74,12 @@ Appointment.create(date: tomorrow, time: "08:30", doctor_id: Doctor.all.sample.i
 Appointment.create(date: tomorrow, time: "10:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Making a lot of progress")
 Appointment.create(date: today, time: "09:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Plan out more outings with your spouse")
 Appointment.create(date: today, time: "08:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Should read more often")
-Appointment.create(date: today, time:"10:30", doctor_id:Doctor.all.sample.id, patient_id:Patient.all.sample.id, notes:"Anger problem")
-Appointment.create(date: today, time:"10:30", doctor_id:Doctor.all.sample.id, patient_id:Patient.all.sample.id, notes:"Anger problem")
-Appointment.create(date: tomorrow, time:"12:30", doctor_id:Doctor.all.sample.id, patient_id:Patient.all.sample.id, notes:"Anger problem")
-Appointment.create(date: tomorrow, time:"11:00", doctor_id:Doctor.all.sample.id, patient_id:Patient.all.sample.id, notes:"Anger problem")
-Appointment.create(date: tomorrow, time:"09:30", doctor_id:Doctor.all.sample.id, patient_id:Patient.all.sample.id, notes:"Anger problem")
-Appointment.create(date: tomorrow, time:"10:00", doctor_id:Doctor.all.sample.id, patient_id:Patient.all.sample.id, notes:"Anger problem")
+Appointment.create(date: today, time: "10:30", doctor_id:Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Anger problem")
+Appointment.create(date: today, time: "10:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Making a lot of progress")
+Appointment.create(date: tomorrow, time: "12:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Anger problem")
+Appointment.create(date: tomorrow, time: "11:00", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Having issues with spouse")
+Appointment.create(date: tomorrow, time: "09:30", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Was not being very responsive")
+Appointment.create(date: tomorrow, time: "10:00", doctor_id: Doctor.all.sample.id, patient_id: Patient.all.sample.id, notes: "Anger problem")
 
 Admin.create(email:"admin@admin.com", password:"admin", first_name:"Jeff", last_name:"Marks")
 

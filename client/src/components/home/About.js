@@ -14,12 +14,14 @@ function About() {
 
 	return (
 		<div id="about-page">
-			<div id="doctor-card-container">
-				{doctors.map((doctor) => (
-					<DoctorCard key={doctor.id} doctor={doctor} />
-				))}
+			<div id="about-page-container">
+				<div id="doctor-card-container">
+					{doctors.map((doctor) => (
+						<DoctorCard key={doctor.id} doctor={doctor} />
+					))}
+				</div>
+				{/* <Footer /> */}
 			</div>
-			<Footer />
 		</div>
 	);
 }
