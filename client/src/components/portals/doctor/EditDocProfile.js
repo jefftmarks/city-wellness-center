@@ -20,6 +20,7 @@ function EditDocProfile({ user, setUser, setMode, setDisplay }) {
 		<li key={error}>{error}</li>
 	));
 
+	// Autofill form with doctor info
 	useEffect(() => {
 		setFormData({
 			...formData,

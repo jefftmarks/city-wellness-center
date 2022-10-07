@@ -2,8 +2,9 @@ import React from "react";
 
 function AdminAppointment({ appointment, handleOnClick }) {
 
+	// reformat time
 	let formattedTime;
-
+	
 	if (appointment) {
 		let hour = parseInt(appointment.time.slice(0, 2));
 		let minutes = appointment.time.slice(3, 5);

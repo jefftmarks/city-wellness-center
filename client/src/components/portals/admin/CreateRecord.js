@@ -13,6 +13,7 @@ function CreateRecord({ category, setMode, onCreateRecord }) {
 	const [formData, setFormData] = useState(intializedForm);
 	const [errors, setErrors] = useState([]);
 
+	// patients --> Patient, doctors --> Doctor
 	const categoryHeader = category[0].toUpperCase() + category.slice(1, category.length - 1);
 
 	const errorList = errors.map((error) => (
@@ -39,7 +40,6 @@ function CreateRecord({ category, setMode, onCreateRecord }) {
 						onCreateRecord(record);
 					});
 				} else {
-					// figure out error handling
 					res.json().then((data) => setErrors(data.errors));
 				}
 			})

@@ -8,6 +8,7 @@ function DocAppointmentsTable({ setDisplay, handleAlert, user }) {
 	const [date, setDate] = useState(today);
 	const [appointments, setAppointments] = useState([]);
 
+	// Populate appointments specific to logged in doctor and according to date input (default today)
 	useEffect(() => {
 		fetch(`/appointments/doctor/${user.id}/date/${date}`)
 			.then((res) => {
@@ -21,6 +22,8 @@ function DocAppointmentsTable({ setDisplay, handleAlert, user }) {
 
 	function handleClickAppointment(appointment) {
 		if (handleAlert()) {
+			// Include page in payload to render correct form
+			// Include type of "appt" in payload to autoload clicked appointment in patient history when patient display form loads
 			const payload = {data: {...appointment, type: "appt" }, page: "patient"};
 			setDisplay(payload);
 		}

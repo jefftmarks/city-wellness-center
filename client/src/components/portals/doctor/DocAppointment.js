@@ -2,6 +2,7 @@ import React from "react";
 
 function DocAppointment({ appointment, handleOnClick }) {
 
+	// reformat time
 	let formattedTime;
 
 	if (appointment) {

@@ -17,6 +17,7 @@ function EditPatientProfile({ user, setUser, setMode, setDisplay }) {
 		<li key={error}>{error}</li>
 	));
 
+	// Autoload form with patient info
 	useEffect(() => {
 		setFormData({
 			...formData,
