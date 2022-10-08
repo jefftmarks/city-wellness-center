@@ -161,8 +161,12 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 				} else {
 					return record;
 				}
-			})
-			setRecords(updatedRecords);
+			});
+			// Sort by last name
+			const sortedRecords = updatedRecords.sort((a, b) => {
+				return a.last_name.localeCompare(b.last_name);
+			});
+			setRecords(sortedRecords);
 			// Map through appointments and update any record on display that matches id of updated record
 			if (updatedRecord) {
 				const updatedAppointments = appointments.map((appt) => {
