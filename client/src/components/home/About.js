@@ -20,7 +20,7 @@ function About() {
 						<DoctorCard key={doctor.id} doctor={doctor} />
 					))}
 				</div>
-				<Footer />
+				{/* <Footer /> */}
 			</div>
 		</div>
 	);

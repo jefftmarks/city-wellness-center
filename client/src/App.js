@@ -9,10 +9,8 @@ import "./App.css";
 import NavBar from "./components/home/NavBar";
 
 function App() {
-	// Active user
-	const [user, setUser] = useState(null);
-	// Role of active user (admin, doctor, patient)
-	const [role, setRole] = useState("");
+	// Active user with default state of no role assigned
+	const [user, setUser] = useState({role: ""});
 
 	const navigate = useNavigate();
 
@@ -21,8 +19,11 @@ function App() {
 	useEffect(() => {
 		let token = localStorage.getItem("jwt");
 		
-		if (token && !user) {
-			setRole("loading");
+		if (token && user.role === "") {
+			setUser({
+				...user,
+				role: "loading"
+			});
 			fetch("/profile", {
 				headers: {
 					token: token,
@@ -32,8 +33,10 @@ function App() {
 			.then((res) => {
 				if (res.ok) {
 					res.json().then((data) => {
-						setUser(data.user);
-						setRole(data.role);
+						setUser({
+							...data.user,
+							role: data.role
+						})
 					});
 				} else {
 					res.json().then((data) => console.log(data));
@@ -45,15 +48,16 @@ function App() {
 	// ~~~~~~~ Reset State After Login / Logout ~~~~~~~
 
 	function handleLogin(data) {
-		setUser(data.user);
-		setRole(data.role);
+		setUser({
+			...data.user,
+			role: data.role
+		});
 		navigate("/");
 	}
 
 	function handleLogout() {
 		localStorage.clear();
-		setRole("");
-		setUser(null);
+		setUser({role: ""});
 	}
 
 	// ~~~~~~~ Conditionally Render App Components ~~~~~~~
@@ -61,7 +65,7 @@ function App() {
 	// If no user, render welcome page with login. Otherwise, depending on user role, render patient, doctor, or admin portal
 
 	function renderSwitch() {
-		switch(role) {
+		switch(user.role) {
 			case "patient":
 				return (
 					<div className="portal-container">
@@ -101,14 +105,14 @@ function App() {
 
 	// Only render nav bar when no user logged in
 	function renderNavBar() {
-		if (role === "") {
+		if (user.role === "") {
 			return <NavBar/>
 		}
 	}
 
 	// About page route should only be accessibly when no user logged in
 	function renderAbout() {
-		if (role === "") {
+		if (user.role === "") {
 			return <Route path="/about" element={<About/>} />
 		}
 	}
