@@ -103,7 +103,13 @@ function AdminPortal({ handleClickSignOut, user, setUser }) {
 		setApptDoctor(null);
 		setApptPatient(null);
 		if (appointment && appointment.date === date) {
-			setAppointments([...appointments, appointment]);
+			// Sort by time
+			const sortedAppointments = [...appointments, appointment].sort((a, b) => {
+				const x = parseFloat(a.time.split(":").join("."));
+				const y = parseFloat(b.time.split(":").join("."));
+				return x - y;
+			})
+			setAppointments(sortedAppointments);
 		}
 	}
 
