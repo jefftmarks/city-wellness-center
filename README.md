@@ -6,7 +6,7 @@ A portal for doctors, office administrators, and patients to create, view, and e
 
 This app was created in October 2022 by [Jeff Marks](https://github.com/jefftmarks) and [Thierry Herman Yabre](https://github.com/Cresus9) as part of a project to practice full-stack web development. City Wellness Center is a fictional medical office, and the app features fictional names and medical records.
 
-The frontend is built on Javascript and React. The backend is build on Ruby on Rails with a SQLite relational database.
+The frontend is built on Javascript and React. The backend is build on Ruby on Rails with a PostgreSQL relational database.
 
 ### Database Associations
 
