@@ -2,6 +2,8 @@
 
 A portal for doctors, office administrators, and patients to create, view, and edit medical appointments and patient records.
 
+You can view a video walkthrough of the app [here](https://www.youtube.com/watch?v=-R32EQop6Lo).
+
 ### Background
 
 This app was created in October 2022 by [Jeff Marks](https://github.com/jefftmarks) and [Thierry Herman Yabre](https://github.com/Cresus9) as part of a project to practice full-stack web development. City Wellness Center is a fictional medical office, and the app features fictional names and medical records.
